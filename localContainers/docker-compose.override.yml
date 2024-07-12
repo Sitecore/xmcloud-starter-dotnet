@@ -4,8 +4,6 @@ services:
   traefik:
     volumes:
       - ./docker/traefik:C:/etc/traefik
-    depends_on:
-      - rendering
 
   # Mount our SQL data folder and use our custom image with the Headless Services (JSS)
   # module data added. See Dockerfile for details.
