@@ -18,10 +18,13 @@ Param (
 
     [Parameter(Mandatory = $false, HelpMessage = "Specifies os version of the base image.")]
     [ValidateSet("ltsc2019", "ltsc2022")]
-    [string]$baseOs = "ltsc2019"
+    [string]$baseOs = "ltsc2022"
 )
 
 $ErrorActionPreference = "Stop";
+
+# Set the root of the repository
+$RepoRoot = Resolve-Path "$PSScriptRoot\..\.."
 
 if ($InitEnv) {
     if (-not $LicenseXmlPath.EndsWith("license.xml")) {
@@ -65,7 +68,7 @@ Write-SitecoreDockerWelcome
 # Configure TLS/HTTPS certificates
 ##################################
 
-Push-Location ..\docker\traefik\certs
+Push-Location $RepoRoot\localContainers\docker\traefik\certs
 try {
     $mkcert = ".\mkcert.exe"
     if ($null -ne (Get-Command mkcert.exe -ErrorAction SilentlyContinue)) {
@@ -81,7 +84,7 @@ try {
     }
     Write-Host "Generating Traefik TLS certificate..." -ForegroundColor Green
     & $mkcert -install
-    & $mkcert "*.aspnetcore.localhost"
+    & $mkcert "*.nextjs-starter.localhost"
     & $mkcert "xmcloudcm.localhost"
 
     # stash CAROOT path for messaging at the end of the script
@@ -94,6 +97,7 @@ finally {
     Pop-Location
 }
 
+$envFileLocation = "$RepoRoot/localContainers/.env"
 
 ################################
 # Add Windows hosts file entries
@@ -102,20 +106,26 @@ finally {
 Write-Host "Adding Windows hosts file entries..." -ForegroundColor Green
 
 Add-HostsEntry "xmcloudcm.localhost"
-Add-HostsEntry "www.aspnetcore.localhost"
+Add-HostsEntry "www.nextjs-starter.localhost"
+
+###############################
+# Generate scjssconfig
+###############################
+
+Set-EnvFileVariable "SITECORE_API_KEY_NEXTJS_STARTER" -Value $xmCloudBuild.renderingHosts.nextjsStarter.jssDeploymentSecret -Path $envFileLocation
 
 ################################
 # Generate Sitecore Api Key
 ################################
 
 $sitecoreApiKey = (New-Guid).Guid
-Set-EnvFileVariable "SITECORE_API_KEY_ASPNETCORE_STARTER" -Value $sitecoreApiKey -Path "../.env"
+Set-EnvFileVariable "SITECORE_API_KEY_NEXTJS_STARTER" -Value $sitecoreApiKey -Path $envFileLocation
 
 ################################
 # Generate JSS_EDITING_SECRET
 ################################
 $jssEditingSecret = Get-SitecoreRandomString 64 -DisallowSpecial
-Set-EnvFileVariable "JSS_EDITING_SECRET" -Value $jssEditingSecret -Path "../.env"
+Set-EnvFileVariable "JSS_EDITING_SECRET" -Value $jssEditingSecret -Path $envFileLocation
 
 ###############################
 # Populate the environment file
@@ -123,50 +133,52 @@ Set-EnvFileVariable "JSS_EDITING_SECRET" -Value $jssEditingSecret -Path "../.env
 
 if ($InitEnv) {
 
+    
+
     Write-Host "Populating required .env file values..." -ForegroundColor Green
 
     # HOST_LICENSE_FOLDER
-    Set-EnvFileVariable "HOST_LICENSE_FOLDER" -Value $LicenseXmlPath -Path "../.env"
+    Set-EnvFileVariable "HOST_LICENSE_FOLDER" -Value $LicenseXmlPath -Path $envFileLocation
 
     # CM_HOST
-    Set-EnvFileVariable "CM_HOST" -Value "xmcloudcm.localhost" -Path "../.env"
+    Set-EnvFileVariable "CM_HOST" -Value "xmcloudcm.localhost" -Path $envFileLocation
 
     # RENDERING_HOST
-    Set-EnvFileVariable "RENDERING_HOST" -Value "www.aspnetcore-starter.localhost" -Path "../.env"
+    Set-EnvFileVariable "RENDERING_HOST" -Value "www.nextjs-starter.localhost" -Path $envFileLocation
 
     # REPORTING_API_KEY = random 64-128 chars
-    Set-EnvFileVariable "REPORTING_API_KEY" -Value (Get-SitecoreRandomString 128 -DisallowSpecial) -Path "../.env"
+    Set-EnvFileVariable "REPORTING_API_KEY" -Value (Get-SitecoreRandomString 128 -DisallowSpecial) -Path $envFileLocation
 
     # TELERIK_ENCRYPTION_KEY = random 64-128 chars
-    Set-EnvFileVariable "TELERIK_ENCRYPTION_KEY" -Value (Get-SitecoreRandomString 128 -DisallowSpecial) -Path "../.env"
+    Set-EnvFileVariable "TELERIK_ENCRYPTION_KEY" -Value (Get-SitecoreRandomString 128 -DisallowSpecial) -Path $envFileLocation
 
     # MEDIA_REQUEST_PROTECTION_SHARED_SECRET
-    Set-EnvFileVariable "MEDIA_REQUEST_PROTECTION_SHARED_SECRET" -Value (Get-SitecoreRandomString 64 -DisallowSpecial) -Path "../.env"
+    Set-EnvFileVariable "MEDIA_REQUEST_PROTECTION_SHARED_SECRET" -Value (Get-SitecoreRandomString 64) -Path $envFileLocation
 
     # SQL_SA_PASSWORD
     # Need to ensure it meets SQL complexity requirements
-    Set-EnvFileVariable "SQL_SA_PASSWORD" -Value (Get-SitecoreRandomString 19 -DisallowSpecial -EnforceComplexity) -Path "../.env"
+    Set-EnvFileVariable "SQL_SA_PASSWORD" -Value (Get-SitecoreRandomString 19 -DisallowSpecial -EnforceComplexity) -Path $envFileLocation
 
     # SQL_SERVER
-    Set-EnvFileVariable "SQL_SERVER" -Value "mssql" -Path "../.env"
+    Set-EnvFileVariable "SQL_SERVER" -Value "mssql" -Path $envFileLocation
 
     # SQL_SA_LOGIN
-    Set-EnvFileVariable "SQL_SA_LOGIN" -Value "sa" -Path "../.env"
+    Set-EnvFileVariable "SQL_SA_LOGIN" -Value "sa" -Path $envFileLocation
 
     # SITECORE_ADMIN_PASSWORD
-    Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value $AdminPassword -Path "../.env"
+    Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value $AdminPassword -Path $envFileLocation
 
     # SITECORE_VERSION
-    Set-EnvFileVariable "SITECORE_VERSION" -Value "1-$baseOS" -Path "../.env"
+    Set-EnvFileVariable "SITECORE_VERSION" -Value "1-$baseOS" -Path $envFileLocation
 
     # EXTERNAL_IMAGE_TAG_SUFFIX
-    Set-EnvFileVariable "EXTERNAL_IMAGE_TAG_SUFFIX" -Value $baseOS -Path "../.env"
+    Set-EnvFileVariable "EXTERNAL_IMAGE_TAG_SUFFIX" -Value $baseOS -Path $envFileLocation
 }
 
 Write-Host "Done!" -ForegroundColor Green
 
 Pop-Location
-Push-Location ..\docker\traefik\certs
+Push-Location $RepoRoot\localContainers\docker\traefik\certs
 try
 {
     Write-Host
