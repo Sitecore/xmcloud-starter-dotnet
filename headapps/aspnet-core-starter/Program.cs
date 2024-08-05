@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var sitecoreSettings = builder.Configuration.GetSection(SitecoreSettings.Key).Get<SitecoreSettings>();
@@ -16,7 +19,8 @@ builder.Services.AddSitecoreRenderingEngine(options =>
                     {
                         options.AddDefaultPartialView("_ComponentNotFound");
                     })
-                .ForwardHeaders();
+                .ForwardHeaders()
+                .WithExperienceEditor(options => { options.JssEditingSecret = sitecoreSettings.EditingSecret ?? string.Empty; });
 
 var app = builder.Build();
 
@@ -30,11 +34,22 @@ else
     app.UseDeveloperExceptionPage();
 }
 
+if (sitecoreSettings.EnableEditingMode)
+{
+    app.UseSitecoreExperienceEditor();
+}
+
 app.UseRouting();
 app.UseStaticFiles();
 
+var DefaultLanguage = "en";
 app.UseRequestLocalization(options =>
 {
+    // If you add languages in Sitecore which this site / Rendering Host should support, add them here.
+    List<CultureInfo> supportedCultures = [new CultureInfo(DefaultLanguage)];
+    options.DefaultRequestCulture = new RequestCulture(DefaultLanguage, DefaultLanguage);
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
     options.UseSitecoreRequestLocalization();
 });
 

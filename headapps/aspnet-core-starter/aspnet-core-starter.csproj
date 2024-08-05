@@ -10,12 +10,14 @@
   <ItemGroup>
     <Using Include="Sitecore.AspNetCore.SDK.LayoutService.Client.Extensions" />
     <Using Include="Sitecore.AspNetCore.SDK.RenderingEngine.Extensions" />
+    <Using Include="Sitecore.AspNetCore.SDK.ExperienceEditor.Extensions" />
     <Using Include="Sitecore.AspNetCore.Starter.Models" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Sitecore.AspNetCore.SDK.LayoutService.Client" Version="0.0.4" />
     <PackageReference Include="Sitecore.AspNetCore.SDK.RenderingEngine" Version="0.0.4" />
+    <PackageReference Include="Sitecore.AspNetCore.SDK.ExperienceEditor" Version="0.0.4" />
   </ItemGroup>
 
 </Project>
