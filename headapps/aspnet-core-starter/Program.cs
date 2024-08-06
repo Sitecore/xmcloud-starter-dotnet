@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Localization;
+using Sitecore.AspNetCore.Starter.Models.PageContent;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +18,8 @@ builder.Services.AddSitecoreLayoutService()
 
 builder.Services.AddSitecoreRenderingEngine(options =>
                     {
-                        options.AddDefaultPartialView("_ComponentNotFound");
+                        options.AddModelBoundView<Title>("Title")
+                               .AddDefaultPartialView("_ComponentNotFound");
                     })
                 .ForwardHeaders()
                 .WithExperienceEditor(options => { options.JssEditingSecret = sitecoreSettings.EditingSecret ?? string.Empty; });
