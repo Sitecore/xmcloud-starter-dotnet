@@ -13,5 +13,17 @@ namespace Sitecore.AspNetCore.Starter.Models.PageContent
 
         [SitecoreComponentProperty(Name = nameof(Component.Name))]
         public string? ComponentName { get; set; }
+
+        [SitecoreComponentParameter(Name = "GridParameters")]
+        public string? GridParameters { get; set; }
+
+        [SitecoreComponentParameter(Name = "FieldNames")]
+        public string? FieldNames { get; set; }
+
+        [SitecoreComponentParameter(Name = "Styles")]
+        public string? Styles { get; set; }
+
+        [SitecoreComponentParameter(Name = "DynamicPlaceholderId")]
+        public int DynamicPlaceholderId { get; set; } = 1;        
     }
 }
