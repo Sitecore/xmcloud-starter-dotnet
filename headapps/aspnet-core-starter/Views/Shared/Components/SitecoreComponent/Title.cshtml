@@ -1,17 +1,15 @@
 ﻿@model Sitecore.AspNetCore.Starter.Models.Title
 
-<div class="component title @Model.Styles" id="@Model.Id">
+<div class="component title @Model.Styles @Model.GridParameters" id="@Model.Id">
     <div class="component-content">
         <div class="field-title">
             @if (Model.IsEditing)
             {
-                <sc-text asp-for="@Model.Text"></sc-text>
+                <span asp-for="@Model.Text"></span>
             }
             else
             {
-                <sc-link asp-for="@Model.Link">
-                    <sc-text asp-for="@Model.Text"></sc-text>
-                </sc-link>
+                <a href="@Model.Link">@Model.Text.Value</a>
             }
         </div>
     </div>
