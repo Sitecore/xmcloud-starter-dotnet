@@ -1,7 +1,7 @@
 ﻿using Sitecore.AspNetCore.SDK.LayoutService.Client.Response.Model;
 using Sitecore.AspNetCore.SDK.RenderingEngine.Binding.Attributes;
 
-namespace Sitecore.AspNetCore.Starter.Models.PageContent
+namespace Sitecore.AspNetCore.Starter.Models
 {
     public abstract class BaseModel
     {

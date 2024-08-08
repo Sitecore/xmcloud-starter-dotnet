@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Sitecore.AspNetCore.SDK.LayoutService.Client.Extensions" />
     <Using Include="Sitecore.AspNetCore.SDK.RenderingEngine.Extensions" />
     <Using Include="Sitecore.AspNetCore.SDK.ExperienceEditor.Extensions" />
@@ -18,6 +26,10 @@
     <PackageReference Include="Sitecore.AspNetCore.SDK.LayoutService.Client" Version="0.0.5" />
     <PackageReference Include="Sitecore.AspNetCore.SDK.RenderingEngine" Version="0.0.5" />
     <PackageReference Include="Sitecore.AspNetCore.SDK.ExperienceEditor" Version="0.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
   </ItemGroup>
 
 </Project>

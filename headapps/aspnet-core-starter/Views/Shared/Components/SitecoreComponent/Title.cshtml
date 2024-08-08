@@ -1,8 +1,8 @@
-﻿@model Sitecore.AspNetCore.Starter.Models.PageContent.Title
+﻿@model Sitecore.AspNetCore.Starter.Models.Title
 
-<div className="component title @Model.Styles" id="@Model.Id">
-    <div className="component-content">
-        <div className="field-title">
+<div class="component title @Model.Styles" id="@Model.Id">
+    <div class="component-content">
+        <div class="field-title">
             @if (Model.IsEditing)
             {
                 <sc-text asp-for="@Model.Text"></sc-text>

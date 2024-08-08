@@ -3,7 +3,7 @@ using Sitecore.AspNetCore.SDK.LayoutService.Client.Response.Model.Properties;
 using Sitecore.AspNetCore.SDK.RenderingEngine.Binding.Attributes;
 using System.Text.Json.Serialization;
 
-namespace Sitecore.AspNetCore.Starter.Models.PageContent
+namespace Sitecore.AspNetCore.Starter.Models
 {
     public class Title : BaseModel
     {
