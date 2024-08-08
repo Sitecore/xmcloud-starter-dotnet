@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Localization;
+using Sitecore.AspNetCore.Starter.Extensions;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +18,7 @@ builder.Services.AddSitecoreLayoutService()
 
 builder.Services.AddSitecoreRenderingEngine(options =>
                     {
-                        options.AddModelBoundView<Title>("Title")
-                               .AddModelBoundView<Container>("Container")
+                        options.AddStarterKitViews()
                                .AddDefaultPartialView("_ComponentNotFound");
                     })
                 .ForwardHeaders()
