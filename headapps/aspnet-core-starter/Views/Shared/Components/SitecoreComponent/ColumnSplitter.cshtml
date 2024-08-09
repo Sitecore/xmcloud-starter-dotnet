@@ -5,6 +5,7 @@
     {
         var key = $"column-{enabledParameterId}-{{*}}";
         var styles = $"{Model.ColumnWidths[enabledParameterId - 1]} {Model.ColumnStyles[enabledParameterId - 1]}";
+
         <div class="@styles">
             <div class="row">
                 <sc-placeholder name="@key"></sc-placeholder>
