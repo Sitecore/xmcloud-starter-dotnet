@@ -9,7 +9,8 @@ namespace Sitecore.AspNetCore.Starter.Extensions
             renderingEngineOptions.AddModelBoundView<Title>("Title")
                                   .AddModelBoundView<Container>("Container")
                                   .AddModelBoundView<ColumnSplitter>("ColumnSplitter")
-                                  .AddModelBoundView<RowSplitter>("RowSplitter"); ;
+                                  .AddModelBoundView<RowSplitter>("RowSplitter")
+                                  .AddModelBoundView<PageContent>("PageContent");
 
             return renderingEngineOptions;
         }
