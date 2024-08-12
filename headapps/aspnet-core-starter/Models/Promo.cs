@@ -1,0 +1,17 @@
+﻿using Sitecore.AspNetCore.SDK.LayoutService.Client.Response.Model.Fields;
+using Sitecore.AspNetCore.SDK.RenderingEngine.Binding.Attributes;
+
+namespace Sitecore.AspNetCore.Starter.Models
+{
+    public class Promo : BaseModel
+    {
+        [SitecoreComponentField]
+        public ImageField? PromoIcon { get; set; }
+
+        [SitecoreComponentField]
+        public TextField? PromoText { get; set; }
+
+        [SitecoreComponentField]
+        public HyperLinkField PromoLink { get; set; }
+    }
+}

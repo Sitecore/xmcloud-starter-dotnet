@@ -1,0 +1,19 @@
+﻿@model Sitecore.AspNetCore.Starter.Models.Promo
+
+<div class="component promo @Model.Styles @Model.GridParameters" id="@Model.Id">
+    <div class="component-content">
+        <div class="field-promoicon">
+            <sc-img asp-for="@Model.PromoIcon" />
+        </div>
+        <div class="promo-text">
+            <div>
+                <div class="field-promotext">
+                    <sc-text asp-for="@Model.PromoText"></sc-text>
+                </div>
+            </div>
+            <div class="field-promolink">
+                <sc-link asp-for="@Model.PromoLink"></sc-link>
+            </div>
+        </div>
+    </div>
+</div>
