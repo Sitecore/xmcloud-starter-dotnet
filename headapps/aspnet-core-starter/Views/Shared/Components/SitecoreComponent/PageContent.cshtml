@@ -1,10 +1,10 @@
 ﻿@model Sitecore.AspNetCore.Starter.Models.PageContent
 
-<div class="component content @Model.Styles" id="@Model.Id">
+<div class="component content @Model.Styles @Model.GridParameters" id="@Model.Id">
     <div class="component-content">
         @if (Model.Content != null)
         {
-            <sc-text asp-for="@Model.Content"></sc-text>
+            <div class="field-content" asp-for="@Model.Content"></div>
         }
         else
         {
