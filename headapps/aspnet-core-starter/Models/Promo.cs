@@ -5,6 +5,8 @@ namespace Sitecore.AspNetCore.Starter.Models
 {
     public class Promo : BaseModel
     {
+        public const string VARIANT_WITH_TEXT = "WithText";
+
         [SitecoreComponentField]
         public ImageField? PromoIcon { get; set; }
 

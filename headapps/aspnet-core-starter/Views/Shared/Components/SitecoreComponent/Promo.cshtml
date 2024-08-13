@@ -6,13 +6,16 @@
             <sc-img asp-for="@Model.PromoIcon" />
         </div>
         <div class="promo-text">
+            @{
+                var variantClass = Model.FieldNames == Promo.VARIANT_WITH_TEXT ? "promo-text" : string.Empty;
+            }
             <div>
                 <div class="field-promotext">
-                    <sc-text asp-for="@Model.PromoText"></sc-text>
+                    <sc-text class="@variantClass" asp-for="@Model.PromoText"></sc-text>
                 </div>
             </div>
             <div class="field-promolink">
-                <sc-link asp-for="@Model.PromoLink"></sc-link>
+                <sc-link class="@variantClass" asp-for="@Model.PromoLink"></sc-link>
             </div>
         </div>
     </div>
