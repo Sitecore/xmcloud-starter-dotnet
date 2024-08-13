@@ -13,7 +13,8 @@ namespace Sitecore.AspNetCore.Starter.Extensions
                                   .AddModelBoundView<PageContent>("PageContent")
                                   .AddModelBoundView<RichText>("RichText")
                                   .AddModelBoundView<Promo>("Promo")
-                                  .AddModelBoundView<LinkList>("LinkList");
+                                  .AddModelBoundView<LinkList>("LinkList")
+                                  .AddModelBoundView<Image>("Image");
 
             return renderingEngineOptions;
         }
