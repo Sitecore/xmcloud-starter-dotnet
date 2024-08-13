@@ -12,7 +12,8 @@ namespace Sitecore.AspNetCore.Starter.Extensions
                                   .AddModelBoundView<RowSplitter>("RowSplitter")
                                   .AddModelBoundView<PageContent>("PageContent")
                                   .AddModelBoundView<RichText>("RichText")
-                                  .AddModelBoundView<Promo>("Promo");
+                                  .AddModelBoundView<Promo>("Promo")
+                                  .AddModelBoundView<LinkList>("LinkList");
 
             return renderingEngineOptions;
         }
