@@ -1,6 +1,6 @@
 {
-    "$schema": "../../.sitecore/schemas/ModuleFile.schema.json",
-    "namespace": "RenderingHost",
+    "$schema": "../../../.sitecore/schemas/ModuleFile.schema.json",
+    "namespace": "aspnet-core-starter",
     "items": {
         "includes": [
             {
