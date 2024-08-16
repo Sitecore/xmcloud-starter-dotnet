@@ -125,10 +125,10 @@ Write-Host "Rebuilding indexes ..." -ForegroundColor Green
 dotnet sitecore index rebuild
 
 Write-Host "Pushing Default rendering host configuration" -ForegroundColor Green
-dotnet sitecore ser push -i RenderingHost
+dotnet sitecore ser push -i aspnet-core-starter
 
 Write-Host "Pushing sitecore API key" -ForegroundColor Green 
-& $RepoRoot\local-containers\docker\build\cm\templates\import-templates.ps1 -RenderingSiteName "NextJs-Starter" -SitecoreApiKey $sitecoreApiKey
+& $RepoRoot\local-containers\docker\build\cm\templates\import-templates.ps1 -RenderingSiteName "aspnet-core-starter" -SitecoreApiKey $sitecoreApiKey
 
 if ($ClientCredentialsLogin -ne "true") {
     Write-Host "Opening site..." -ForegroundColor Green

@@ -2,6 +2,7 @@ services:
 
   # Mount the Traefik configuration and certs.
   traefik:
+    image: ${TRAEFIK_IMAGE}-${EXTERNAL_IMAGE_TAG_SUFFIX}
     volumes:
       - ./docker/traefik:C:/etc/traefik
 
@@ -21,6 +22,32 @@ services:
         source: .\docker\data\solr
         target: c:\data
 
+  # Container used to run the ASP.NET Core Starter application.
+  aspnet-core-starter:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-aspnet-core-starter:${VERSION:-latest}
+    build:
+      context: ../
+      dockerfile: ./local-containers/docker/build/aspnet-core-starter/Dockerfile
+      args:
+        BASE_IMAGE: ${NETCORE_IMAGE}-${EXTERNAL_IMAGE_TAG_SUFFIX}
+        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
+    # volumes:
+    #   - ../headapps/aspnet-core-starter:C:\app
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://*:80"
+    depends_on:
+      - cm
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.aspnet-core-starter-secure.entrypoints=websecure"
+      - "traefik.http.routers.aspnet-core-starter-secure.rule=Host(`${RENDERING_HOST}`)"
+      - "traefik.http.routers.aspnet-core-starter-secure.tls=true"   
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/healthz"]
+      interval: 60s
+      timeout: 30s
+
   # Use our custom CM image with added modules and solution code.
   # Folders are mounted below for code deployment and log output. See Dockerfile for details.
   # Configure for a mounted license file instead of using SITECORE_LICENSE.
@@ -37,7 +64,7 @@ services:
       - ${HOST_LICENSE_FOLDER}:c:\license
     environment:
       SITECORE_LICENSE_LOCATION: c:\license\license.xml
-      RENDERING_HOST_INTERNAL_URI: "http://rendering:3000"
+      RENDERING_HOST_INTERNAL_URI: ${RENDERING_HOST_INTERNAL_URI}
       JSS_DEPLOYMENT_SECRET_ASPNETCORE: ${JSS_DEPLOYMENT_SECRET_ASPNETCORE_STARTER}
       SITECORE_JSS_EDITING_SECRET: ${JSS_EDITING_SECRET}
       SITECORE_EDITING_HOST_PUBLIC_HOST: "${RENDERING_HOST}"
