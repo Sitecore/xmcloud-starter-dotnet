@@ -23,9 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sitecore.AspNetCore.SDK.LayoutService.Client" Version="0.0.6" />
-    <PackageReference Include="Sitecore.AspNetCore.SDK.RenderingEngine" Version="0.0.6" />
-    <PackageReference Include="Sitecore.AspNetCore.SDK.ExperienceEditor" Version="0.0.6" />
+    <PackageReference Include="Sitecore.AspNetCore.SDK.LayoutService.Client" Version="0.0.7" />
+    <PackageReference Include="Sitecore.AspNetCore.SDK.RenderingEngine" Version="0.0.7" />
+    <PackageReference Include="Sitecore.AspNetCore.SDK.ExperienceEditor" Version="0.0.7" />
   </ItemGroup>
 
   <ItemGroup>

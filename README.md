@@ -11,9 +11,6 @@ This Github repository is a template that can be used to create your own reposit
 ## Getting Started Guide
 For developers new to XM Cloud you can follow the Getting Started Guide on the [Sitecore Documentation Site](https://doc.sitecore.com/xmc) to get up and running with XM Cloud. This will walk you through the process of creating a new XM Cloud Project, provisioning an Environment, deploying the ASP.Net Core Starter Kit, and finally creating your first Component.
 
-### Temporary Pre-req
-Download the nupkg files from the following locations and place them in the `/headapps/lib` folder: https://github.com/Sitecore/ASP.NET-Core-SDK/releases/tag/0.0.4
-
 ### Running the ASP.NET Core Starter Kit
 TODO: Add steps for running the ASP.NET Core Starter Kit locally.
 
