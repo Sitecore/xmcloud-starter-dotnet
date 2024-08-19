@@ -1,16 +1,20 @@
-ARG BASE_IMAGE
-ARG BUILD_CONFIGURATION
+ARG BUILD_IMAGE
+ARG RUNTIME_IMAGE
 
-FROM ${BASE_IMAGE}
+FROM ${BUILD_IMAGE} AS build
+WORKDIR /source
 
-# Copy in the headapps code
-COPY ./headapps ./app/
-COPY ./local-containers/docker/build/aspnet-core-starter/nuget.config ./app/aspnet-core-starter
+COPY ./headapps ./
+COPY ./nuget.config ./
+RUN dotnet restore
+RUN dotnet publish -c Debug -o /app --no-restore
 
-WORKDIR /app/aspnet-core-starter
+FROM ${RUNTIME_IMAGE}
+ARG ENTRYPOINT_ASSEMBLY
+ENV ENTRYPOINT_ASSEMBLY="${ENTRYPOINT_ASSEMBLY}"
 
-RUN dotnet restore aspnet-core-starter.csproj
-RUN dotnet build aspnet-core-starter.csproj -c $BUILD_CONFIGURATION
-
-EXPOSE 5000
-ENTRYPOINT ["dotnet", "run"]
+WORKDIR /app
+COPY --from=build /app ./
+EXPOSE 80
+EXPOSE 443
+ENTRYPOINT dotnet %ENTRYPOINT_ASSEMBLY%

@@ -29,13 +29,21 @@ services:
       context: ../
       dockerfile: ./local-containers/docker/build/aspnet-core-starter/Dockerfile
       args:
-        BASE_IMAGE: ${NETCORE_IMAGE}-${EXTERNAL_IMAGE_TAG_SUFFIX}
-        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
-    # volumes:
-    #   - ../headapps/aspnet-core-starter:C:\app
+        BUILD_IMAGE: ${NETCORE_BUILD_IMAGE}-${EXTERNAL_IMAGE_TAG_SUFFIX}
+        RUNTIME_IMAGE: ${NETCORE_RUNTIME_IMAGE}-${EXTERNAL_IMAGE_TAG_SUFFIX}
+        ENTRYPOINT_ASSEMBLY: aspnet-core-starter.dll
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://*:80"
+      MVP_RENDERING_EDITING_HOST_URI: "http://aspnet-core-starter"
+      Sitecore__InstanceUri: "http://cm"
+      Sitecore__LayoutServicePath: "/sitecore/api/graph/edge/"
+      Sitecore__EnableEditingMode: "true" 
+      Sitecore__ExperienceEdgeToken: ${SITECORE_API_KEY_ASPNETCORE_STARTER}
+      Sitecore__EditingSecret: ${EDITING_SECRET}
+      Sitecore__DefaultSiteName: "aspnet-core-starter"
+    ports:
+      - "80:80"
     depends_on:
       - cm
     labels:
@@ -43,10 +51,6 @@ services:
       - "traefik.http.routers.aspnet-core-starter-secure.entrypoints=websecure"
       - "traefik.http.routers.aspnet-core-starter-secure.rule=Host(`${RENDERING_HOST}`)"
       - "traefik.http.routers.aspnet-core-starter-secure.tls=true"   
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/healthz"]
-      interval: 60s
-      timeout: 30s
 
   # Use our custom CM image with added modules and solution code.
   # Folders are mounted below for code deployment and log output. See Dockerfile for details.
@@ -66,7 +70,7 @@ services:
       SITECORE_LICENSE_LOCATION: c:\license\license.xml
       RENDERING_HOST_INTERNAL_URI: ${RENDERING_HOST_INTERNAL_URI}
       JSS_DEPLOYMENT_SECRET_ASPNETCORE: ${JSS_DEPLOYMENT_SECRET_ASPNETCORE_STARTER}
-      SITECORE_JSS_EDITING_SECRET: ${JSS_EDITING_SECRET}
+      SITECORE_JSS_EDITING_SECRET: ${EDITING_SECRET}
       SITECORE_EDITING_HOST_PUBLIC_HOST: "${RENDERING_HOST}"
       SITECORE_GraphQL_CORS: ${SITECORE_GRAPHQL_CORS}
       SITECORE_Pages_Client_Host: ${SITECORE_Pages_Client_Host}

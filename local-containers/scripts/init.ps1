@@ -84,7 +84,7 @@ try {
     }
     Write-Host "Generating Traefik TLS certificate..." -ForegroundColor Green
     & $mkcert -install
-    & $mkcert "*.nextjs-starter.localhost"
+    & $mkcert "*.aspnetcore-starter.localhost"
     & $mkcert "xmcloudcm.localhost"
 
     # stash CAROOT path for messaging at the end of the script
@@ -106,26 +106,20 @@ $envFileLocation = "$RepoRoot/local-containers/.env"
 Write-Host "Adding Windows hosts file entries..." -ForegroundColor Green
 
 Add-HostsEntry "xmcloudcm.localhost"
-Add-HostsEntry "www.nextjs-starter.localhost"
-
-###############################
-# Generate scjssconfig
-###############################
-
-Set-EnvFileVariable "SITECORE_API_KEY_NEXTJS_STARTER" -Value $xmCloudBuild.renderingHosts.nextjsStarter.jssDeploymentSecret -Path $envFileLocation
+Add-HostsEntry "www.aspnetcore-starter.localhost"
 
 ################################
 # Generate Sitecore Api Key
 ################################
 
 $sitecoreApiKey = (New-Guid).Guid
-Set-EnvFileVariable "SITECORE_API_KEY_NEXTJS_STARTER" -Value $sitecoreApiKey -Path $envFileLocation
+Set-EnvFileVariable "SITECORE_API_KEY_ASPNETCORE_STARTER" -Value $sitecoreApiKey -Path $envFileLocation
 
 ################################
-# Generate JSS_EDITING_SECRET
+# Generate EDITING_SECRET
 ################################
-$jssEditingSecret = Get-SitecoreRandomString 64 -DisallowSpecial
-Set-EnvFileVariable "JSS_EDITING_SECRET" -Value $jssEditingSecret -Path $envFileLocation
+$editingSecret = Get-SitecoreRandomString 64 -DisallowSpecial
+Set-EnvFileVariable "EDITING_SECRET" -Value $editingSecret -Path $envFileLocation
 
 ###############################
 # Populate the environment file
@@ -144,7 +138,7 @@ if ($InitEnv) {
     Set-EnvFileVariable "CM_HOST" -Value "xmcloudcm.localhost" -Path $envFileLocation
 
     # RENDERING_HOST
-    Set-EnvFileVariable "RENDERING_HOST" -Value "www.nextjs-starter.localhost" -Path $envFileLocation
+    Set-EnvFileVariable "RENDERING_HOST" -Value "www.aspnetcore-starter.localhost" -Path $envFileLocation
 
     # REPORTING_API_KEY = random 64-128 chars
     Set-EnvFileVariable "REPORTING_API_KEY" -Value (Get-SitecoreRandomString 128 -DisallowSpecial) -Path $envFileLocation
