@@ -14,8 +14,9 @@ namespace Sitecore.AspNetCore.Starter.Extensions
                                   .AddModelBoundView<RichText>("RichText")
                                   .AddModelBoundView<Promo>("Promo")
                                   .AddModelBoundView<LinkList>("LinkList")
-                                  .AddModelBoundView<Image>("Image");
-
+                                  .AddModelBoundView<Image>("Image")
+                                  .AddModelBoundView<PartialDesignDynamicPlaceholder>("PartialDesignDynamicPlaceholder");
+            
             return renderingEngineOptions;
         }
     }
