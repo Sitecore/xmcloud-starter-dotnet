@@ -7,12 +7,14 @@ namespace Sitecore.AspNetCore.Starter.Controllers
 {
     public class DefaultController(ILogger<DefaultController> logger) : Controller
     {
+        private const string EDITING_PATH = "/api/editing/config";
+
         [UseSitecoreRendering]
         public IActionResult Index()
         {
             IActionResult? result = null;
             ISitecoreRenderingContext? request = HttpContext.GetSitecoreRenderingContext();
-            if (request?.Response?.HasErrors ?? false)
+            if ((request?.Response?.HasErrors ?? false) && !IsPageEditingRequest(request))
             {
                 foreach (SitecoreLayoutServiceClientException error in request.Response.Errors)
                 {
@@ -30,6 +32,11 @@ namespace Sitecore.AspNetCore.Starter.Controllers
             }
 
             return result;
+        }
+
+        private bool IsPageEditingRequest(ISitecoreRenderingContext request)
+        {
+            return request?.Controller?.HttpContext.Request.Path == EDITING_PATH;
         }
     }
 }
