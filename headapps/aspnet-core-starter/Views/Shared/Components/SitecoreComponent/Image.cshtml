@@ -3,10 +3,10 @@
 @if(Model.FieldNames == Image.VARIANT_BANNER)
 {
     var classHeroBannerEmpty = (Model.IsEditing && string.IsNullOrWhiteSpace(Model?.ImageField?.Value.Src)) ? "hero-banner-empty" : string.Empty;
-    var backgroundStyle = (!string.IsNullOrWhiteSpace(Model?.ImageField?.Value.Src)) ? $"{{ backgroundImage: url('{@Model?.ImageField?.Value.Src}')}}" : string.Empty;
+    var backgroundStyle = (!string.IsNullOrWhiteSpace(Model?.ImageField?.Value.Src)) ? $"background-image: url('{@Model?.ImageField?.Value.Src}')" : string.Empty;
 
-    <div className="component hero-banner @Model?.Styles @Model?.GridParameters @classHeroBannerEmpty" id="@Model?.Id">
-        <div className="component-content sc-sxa-image-hero-banner" style="@backgroundStyle">
+    <div class="component hero-banner @Model?.Styles @Model?.GridParameters @classHeroBannerEmpty" id="@Model?.Id">
+        <div class="component-content sc-sxa-image-hero-banner" style="@backgroundStyle">
             @if (Model?.IsEditing ?? false)
             {
                 <sc-img asp-for="@Model.ImageField" />

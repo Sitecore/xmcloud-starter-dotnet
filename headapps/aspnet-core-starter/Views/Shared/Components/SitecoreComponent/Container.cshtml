@@ -2,7 +2,7 @@
 
 @if (Model.OutputContainerWrapper)
 {
-    @("<div class=\"container - wrapper\">")
+    @Html.Raw("<div class=\"container-wrapper\">")
 }
 
 <div class="component container-default @Model.GridParameters @Model.Styles" style="@Model.BackgroundStyle" id="@Model.Id">
@@ -15,5 +15,5 @@
 
 @if (Model.OutputContainerWrapper)
 {
-    @("</div>")
+    @Html.Raw("</div>")
 }

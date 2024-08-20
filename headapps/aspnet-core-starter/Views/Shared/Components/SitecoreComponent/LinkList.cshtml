@@ -15,7 +15,7 @@
 
                         var className = $"item{index} {((index + 1) % 2 == 0 ? "even" : "odd")} {((index == 0) ? "first" : (index == Model.Data.Datasource.Children.Results?.Count - 1) ? "last" : "")}";
 
-                        <li class={classNae}>
+                        <li class="@className">
                             <div class="field-link">
                                 <sc-link asp-for="@item.Field.Link"></sc-link>
                             </div>
