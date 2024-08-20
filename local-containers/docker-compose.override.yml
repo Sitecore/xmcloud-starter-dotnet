@@ -41,7 +41,7 @@ services:
       Sitecore__EnableEditingMode: "true" 
       Sitecore__ExperienceEdgeToken: ${SITECORE_API_KEY_ASPNETCORE_STARTER}
       Sitecore__EditingSecret: ${EDITING_SECRET}
-      Sitecore__DefaultSiteName: "aspnet-core-starter"
+      Sitecore__DefaultSiteName: ${SITE_NAME}
     ports:
       - "80:80"
     depends_on:
