@@ -20,6 +20,7 @@ This Github repository is a template that can be used to create your own reposit
 ## Getting Started Guide
 > [!NOTE]
 > The XM Cloud Getting Started Guide currently only caters for Next.js applications. As part of the work in getting the ASP.NET Core Starter Kit ready for release, the documentation will be updated to include the steps required to get started with the ASP.NET Core Starter Kit. For now a temporary section will be added below which will quickly walk through the process.
+
 For developers new to XM Cloud you can follow the Getting Started Guide on the [Sitecore Documentation Site](https://doc.sitecore.com/xmc) to get up and running with XM Cloud. This will walk you through the process of creating a new XM Cloud Project, provisioning an Environment, deploying the ASP.Net Core Starter Kit, and finally creating your first Component.
 
 ### Running the ASP.NET Core Starter Kit
