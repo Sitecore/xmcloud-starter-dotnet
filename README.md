@@ -35,22 +35,22 @@ For developers new to XM Cloud you can follow the Getting Started Guide on the [
 5. Click on the Sites link in the top menu
 6. Click the Create Site button
 7. Select the 'Empty Site' template
-8. Enter a name for the site and click the Create site button
+8. Enter a name for the site and click the Create site button. Make a note of the chosen site name.
 9. When completed click the `Tools` link in the top menu
 10. Click the `Content Editor` button
-11. When the Content Editor loads, make a note the URL it loads under.
+11. When the Content Editor loads, make a note of the URL it loads under.
 12. Navigate to `/sitecore/system/Settings/Services/API Keys`
 13. Right-click on the API Keys Folder Item and choose `Insert -> API Key`.
 14. Give the API Key a name and click the OK button.
-15. Make a note of the generated Item ID.
-16. Set the following Field values on the API Key item:
+15. Make a note of the generated Item ID (This is located in the Quick Info panel).
+16. Set the following Field values on the API Key item, and click Save to persist the changes.
     - `CORS Origins` - `*`
     - `Allowed Controllers` - `*`
 17. Return to the Deploy application, and find the Environment you created earlier.
 18. Click on the Developer Settings button and make note of the `JSS_EDITING_SECRET` value shown.
 19. Clone the repository to your local machine.
 20. Open the `./headapps/aspnet-core-starter.sln` solution in Visual Studio.
-21. Open the `appsettings.json` file in the `aspnetcore-starter` project.
+21. Open the `appsettings.json` file in the `aspnet-core-starter` project.
 22. Set the following values in the `Sitecore` section of the `appsettings.json` file:
     - `InstanceUri` - The url to the XM Cloud instance which you recorded in step 11. It should be in the format: `https://xmc-XXX-XXX-XXX.sitecorecloud.io/`
     - `DefaultSiteName` - The name of the Site created in step 8.
@@ -58,9 +58,9 @@ For developers new to XM Cloud you can follow the Getting Started Guide on the [
     - `EditingSecret` - The JSS_EDITING_SECRET value from step 17.
 23. Create a local dev tunnel in Visual Studio by following this [guide](https://learn.microsoft.com/en-us/connectors/custom-connectors/port-tunneling)
 24. Hit F5 to run the application from Visual Studio, ensuring you have enabled your dev tunnel.
-25. When the page loads make a note of the URL, it should in the format `https://XXXX.devtunnels.ms/`
+25. When the page loads make a note of the URL, it should in the format `https://XXXX.devtunnels.ms/`. If successful you should see a plan white page rendered.
 26. Return to the Content Editor
-27. Navigate to the `/sitecore/system/Settings/Services/Rendering Hosts/Default` item, and set the following values
+27. Navigate to the `/sitecore/system/Settings/Services/Rendering Hosts/Default` item, and set the following values, ensuring you save the changes:
     - `Server side rendering engine endpoint URL` - `https://<<TUNNEL_URL>>/jss-render`
     - `Server side rendering engine application URL` - `https://<<TUNNEL_URL>>`
     - `Server side rendering engine configuration URL` - `https://<<TUNNEL_URL>>/api/editing/config`
