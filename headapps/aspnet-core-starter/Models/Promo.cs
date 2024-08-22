@@ -14,6 +14,6 @@ namespace Sitecore.AspNetCore.Starter.Models
         public TextField? PromoText { get; set; }
 
         [SitecoreComponentField]
-        public HyperLinkField PromoLink { get; set; }
+        public HyperLinkField? PromoLink { get; set; }
     }
 }

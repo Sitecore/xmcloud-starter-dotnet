@@ -13,7 +13,7 @@ namespace Sitecore.AspNetCore.Starter.Controllers
         public IActionResult Index()
         {
             IActionResult? result = null;
-            ISitecoreRenderingContext? request = HttpContext.GetSitecoreRenderingContext();
+            var request = HttpContext.GetSitecoreRenderingContext();
             if ((request?.Response?.HasErrors ?? false) && !IsPageEditingRequest(request))
             {
                 foreach (SitecoreLayoutServiceClientException error in request.Response.Errors)

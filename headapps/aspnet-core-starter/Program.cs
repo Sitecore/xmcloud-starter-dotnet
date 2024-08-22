@@ -46,20 +46,21 @@ app.UseStaticFiles();
 
 var DefaultLanguage = "en";
 app.UseRequestLocalization(options =>
-{
-    // If you add languages in Sitecore which this site / Rendering Host should support, add them here.
-    List<CultureInfo> supportedCultures = [new CultureInfo(DefaultLanguage)];
-    options.DefaultRequestCulture = new RequestCulture(DefaultLanguage, DefaultLanguage);
-    options.SupportedCultures = supportedCultures;
-    options.SupportedUICultures = supportedCultures;
-    options.UseSitecoreRequestLocalization();
-});
+    {
+        // If you add languages in Sitecore which this site / Rendering Host should support, add them here.
+        List<CultureInfo> supportedCultures = [new CultureInfo(DefaultLanguage)];
+        options.DefaultRequestCulture = new RequestCulture(DefaultLanguage, DefaultLanguage);
+        options.SupportedCultures = supportedCultures;
+        options.SupportedUICultures = supportedCultures;
+        options.UseSitecoreRequestLocalization();
+    });
 
 app.MapControllerRoute(
-    "error",
-    "error",
-    new { controller = "Default", action = "Error" }
-);
+        "error",
+        "error",
+        new { controller = "Default", action = "Error" }
+    );
+
 app.MapSitecoreLocalizedRoute("sitecore", "Index", "Default");
 app.MapFallbackToController("Index", "Default");
 

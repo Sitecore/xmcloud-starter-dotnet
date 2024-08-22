@@ -10,7 +10,8 @@ namespace Sitecore.AspNetCore.Starter.Models
         [SitecoreComponentField(Name = "data")]            
         public TitleData? Data { get; set; }
 
-        public HyperLinkField Link { 
+        public HyperLinkField Link 
+        { 
             get 
             {
                 return new HyperLinkField(

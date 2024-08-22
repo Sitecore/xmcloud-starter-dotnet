@@ -20,7 +20,10 @@
         {
             get
             {
-                if (InstanceUri == null) return null;
+                if (InstanceUri == null)
+                {
+                    return null;
+                }
 
                 return new Uri(InstanceUri, LayoutServicePath);
             }
