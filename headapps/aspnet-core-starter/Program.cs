@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Localization;
 using Sitecore.AspNetCore.Starter.Extensions;
 using System.Globalization;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 var sitecoreSettings = builder.Configuration.GetSection(SitecoreSettings.Key).Get<SitecoreSettings>();
 ArgumentNullException.ThrowIfNull(sitecoreSettings);
@@ -24,7 +24,7 @@ builder.Services.AddSitecoreRenderingEngine(options =>
                 .ForwardHeaders()
                 .WithExperienceEditor(options => { options.JssEditingSecret = sitecoreSettings.EditingSecret ?? string.Empty; });
 
-WebApplication app = builder.Build();
+var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
@@ -44,12 +44,12 @@ if (sitecoreSettings.EnableEditingMode)
 app.UseRouting();
 app.UseStaticFiles();
 
-string defaultLanguage = "en";
+var DefaultLanguage = "en";
 app.UseRequestLocalization(options =>
     {
         // If you add languages in Sitecore which this site / Rendering Host should support, add them here.
-        List<CultureInfo> supportedCultures = [new CultureInfo(defaultLanguage)];
-        options.DefaultRequestCulture = new RequestCulture(defaultLanguage, defaultLanguage);
+        List<CultureInfo> supportedCultures = [new CultureInfo(DefaultLanguage)];
+        options.DefaultRequestCulture = new RequestCulture(DefaultLanguage, DefaultLanguage);
         options.SupportedCultures = supportedCultures;
         options.SupportedUICultures = supportedCultures;
         options.UseSitecoreRequestLocalization();

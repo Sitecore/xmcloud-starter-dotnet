@@ -12,7 +12,6 @@ namespace Sitecore.AspNetCore.Starter.Controllers
         [UseSitecoreRendering]
         public IActionResult Index()
         {
-            IActionResult? result = null;
             var request = HttpContext.GetSitecoreRenderingContext();
             if ((request?.Response?.HasErrors ?? false) && !IsPageEditingRequest(request))
             {
@@ -26,17 +25,13 @@ namespace Sitecore.AspNetCore.Starter.Controllers
                     }
                 }
             }
-            else
-            {
-                result = View();
-            }
-
-            return result;
+                
+            return View();
         }
 
         private static bool IsPageEditingRequest(ISitecoreRenderingContext request)
         {
-            return request?.Controller?.HttpContext.Request.Path == EDITING_PATH;
+            return request.Controller?.HttpContext.Request.Path == EDITING_PATH;
         }
     }
 }
