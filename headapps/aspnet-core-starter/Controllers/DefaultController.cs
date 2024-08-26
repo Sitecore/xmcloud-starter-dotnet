@@ -34,7 +34,7 @@ namespace Sitecore.AspNetCore.Starter.Controllers
             return result;
         }
 
-        private bool IsPageEditingRequest(ISitecoreRenderingContext request)
+        private static bool IsPageEditingRequest(ISitecoreRenderingContext request)
         {
             return request?.Controller?.HttpContext.Request.Path == EDITING_PATH;
         }

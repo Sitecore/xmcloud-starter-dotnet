@@ -7,7 +7,7 @@
         </div>
         <div class="promo-text">
             @{
-                var variantClass = Model.FieldNames == Promo.VARIANT_WITH_TEXT ? "promo-text" : string.Empty;
+                string variantClass = Model.FieldNames == Promo.VARIANT_WITH_TEXT ? "promo-text" : string.Empty;
             }
             <div>
                 <div class="field-promotext">

@@ -14,7 +14,7 @@
 
         public string? EditingSecret { get; set; }
 
-        public bool EnableEditingMode { get; set; } = false;
+        public bool EnableEditingMode { get; set; }
 
         public Uri? LayoutServiceUri
         {

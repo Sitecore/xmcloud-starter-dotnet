@@ -1,19 +1,21 @@
-﻿@model Sitecore.AspNetCore.Starter.Models.LinkList
+﻿@model Sitecore.AspNetCore.Starter.Models.LinkList.LinkList
 
 <div class="component link-list @Model.Styles @Model.GridParameters" id="@Model.Id">
     <div class="component-content">
         <h3 asp-for="@Model.Title"></h3>
-         @if (Model?.Data?.Datasource?.Children?.Results?.Count > 0)
+         @if (Model.Data?.Datasource?.Children?.Results?.Count > 0)
          {
             <ul>
                 @if (Model.Children.Count > 0)
                 {
-                    @foreach (var (item, index) in Model.Children.Select((item, index) => (item, index)))
+                    @foreach ((LinkListItem item, int index) in Model.Children.Select((item, index) => (item, index)))
                     {
-                        if (item == null || item.Field == null)
+                        if (item.Field == null)
+                        {
                             continue;
+                        }
 
-                        var className = $"item{index} {((index + 1) % 2 == 0 ? "even" : "odd")} {((index == 0) ? "first" : (index == Model.Data.Datasource.Children.Results?.Count - 1) ? "last" : "")}";
+                        var className = $"item{index} {((index + 1) % 2 == 0 ? "even" : "odd")} {((index == 0) ? "first" : index == Model.Data.Datasource.Children.Results?.Count - 1 ? "last" : "")}";
 
                         <li class="@className">
                             <div class="field-link">

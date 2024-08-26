@@ -3,9 +3,10 @@ using System.Text.RegularExpressions;
 
 namespace Sitecore.AspNetCore.Starter.Models
 {
-    public class Container : BaseModel
+    public partial class Container : BaseModel
     {
-        private Regex backgroundImageRegex = new Regex(@"/[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/gi");
+        [GeneratedRegex("/mediaurl=\\\"([^\"]*)\\\"/", RegexOptions.IgnoreCase, "en-US")]
+        private static partial Regex MediaUrlPattern();
 
         [SitecoreComponentParameter(Name = "BackgroundImage")]
         public string? BackgroundImage { get; set; }
@@ -14,14 +15,13 @@ namespace Sitecore.AspNetCore.Starter.Models
         { 
             get
             {
-                if (string.IsNullOrEmpty(BackgroundImage))
+                if (!string.IsNullOrEmpty(BackgroundImage) && MediaUrlPattern().IsMatch(BackgroundImage))
                 {
-                    return string.Empty;
+                    string mediaUrl = MediaUrlPattern().Match(BackgroundImage).Groups[1].Value;
+                    return $"backgroundImage: url('{mediaUrl}')";
                 }
 
-                var prefix = $"{(IsEditing ? "/sitecore/shell" : string.Empty + "")}/-/media/";
-                var backgroundImageUrl = backgroundImageRegex.Match(BackgroundImage ?? string.Empty).Value.Replace("-", string.Empty);
-                return $"backgroundImage: url('{prefix}{backgroundImageUrl}')";
+                return string.Empty;
             }
         }
 

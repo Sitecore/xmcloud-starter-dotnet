@@ -2,7 +2,7 @@
 
 <div class="component rich-text @Model.Styles @Model.GridParameters" id="@Model.Id">
     <div class="component-content">
-        @if(string.IsNullOrEmpty(@Model.Text?.ToString()))
+        @if(string.IsNullOrEmpty(Model.Text?.ToString()))
         {
             <span class="is-empty-hint">Rich text</span>
         }

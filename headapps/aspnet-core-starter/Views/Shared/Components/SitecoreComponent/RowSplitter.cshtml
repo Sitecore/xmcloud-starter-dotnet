@@ -1,10 +1,10 @@
 ﻿@model Sitecore.AspNetCore.Starter.Models.RowSplitter
 
 <div class="component row-splitter @Model.Styles @Model.GridParameters" id="@Model.Id">
-    @foreach (var enabledParameterId in Model.EnabledPlaceholderIds)
+    @foreach (int enabledParameterId in Model.EnabledPlaceholderIds)
     {
-        var key = $"row-{enabledParameterId}-{{*}}";
-        var styles = $"{Model.ColumnStyles[enabledParameterId - 1]}";
+        string key = $"row-{enabledParameterId}-{{*}}";
+        string styles = $"{Model.ColumnStyles[enabledParameterId - 1]}";
 
         <div class="container-fluid @styles">
             <div>
