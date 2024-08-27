@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Sitecore.AspNetCore.Starter</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Sitecore.AspNetCore.SDK.LayoutService.Client.Extensions" />
+    <Using Include="Sitecore.AspNetCore.SDK.RenderingEngine.Extensions" />
+    <Using Include="Sitecore.AspNetCore.SDK.ExperienceEditor.Extensions" />
+    <Using Include="Sitecore.AspNetCore.Starter.Models" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sitecore.AspNetCore.SDK.LayoutService.Client" />
+    <PackageReference Include="Sitecore.AspNetCore.SDK.RenderingEngine" />
+    <PackageReference Include="Sitecore.AspNetCore.SDK.ExperienceEditor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+  </ItemGroup>
+
+</Project>

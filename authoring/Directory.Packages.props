@@ -1,0 +1,16 @@
+<Project>
+    <PropertyGroup>
+        <PlatformVersion>1.*</PlatformVersion>
+    </PropertyGroup>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageVersion Include="Sitecore.XmCloud.Kernel" Version="$(PlatformVersion)" />
+        <PackageVersion Include="Sitecore.XmCloud.ContentSearch" Version="$(PlatformVersion)" />
+        <PackageVersion Include="Sitecore.XmCloud.ContentSearch.Linq" Version="$(PlatformVersion)" />
+        <PackageVersion Include="Sitecore.XmCloud.LayoutService" Version="$(PlatformVersion)" />
+        <PackageVersion Include="Sitecore.XmCloud.Assemblies" Version="$(PlatformVersion)" />
+        <PackageVersion Include="Sitecore.Assemblies.SitecoreHeadlessServicesServer" Version="19.*" />
+    </ItemGroup>
+</Project>

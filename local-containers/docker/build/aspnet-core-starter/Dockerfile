@@ -1,0 +1,20 @@
+ARG BUILD_IMAGE
+ARG RUNTIME_IMAGE
+
+FROM ${BUILD_IMAGE} AS build
+WORKDIR /source
+
+COPY ./headapps ./
+COPY ./nuget.config ./
+RUN dotnet restore
+RUN dotnet publish -c Debug -o /app --no-restore
+
+FROM ${RUNTIME_IMAGE}
+ARG ENTRYPOINT_ASSEMBLY
+ENV ENTRYPOINT_ASSEMBLY="${ENTRYPOINT_ASSEMBLY}"
+
+WORKDIR /app
+COPY --from=build /app ./
+EXPOSE 80
+EXPOSE 443
+ENTRYPOINT dotnet %ENTRYPOINT_ASSEMBLY%

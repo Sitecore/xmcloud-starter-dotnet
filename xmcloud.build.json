@@ -1,0 +1,22 @@
+{
+  "buildTargets": [
+    "./authoring/XmCloudAuthoring.sln"
+  ],
+  "postActions": {
+    "actions": {
+      "warmUpCm": {
+        "urls": [
+          "/sitecore/shell",
+          "/sitecore/shell/Applications/Content%20Editor.aspx?sc_bw=1",
+          "/sitecore/client/Applications/Launchpad"
+        ]
+      },
+      "populateSchema": {
+        "indexNames": []
+      },
+      "reindex": {
+        "indexNames": []
+      }
+    }
+  }
+}
