@@ -8,5 +8,4 @@ namespace Sitecore.AspNetCore.Starter.Models
         [JsonPropertyName("link")]
         public HyperLinkField? Link { get; set; }
     }
-
 }

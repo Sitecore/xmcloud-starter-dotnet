@@ -16,6 +16,8 @@
 
         public bool EnableEditingMode { get; set; }
 
+        public string? EditingPath { get; set; }
+
         public Uri? LayoutServiceUri
         {
             get

@@ -10,5 +10,4 @@ namespace Sitecore.AspNetCore.Starter.Models
         [JsonPropertyName("children")]
         public LinkListChildren? Children { get; set; }
     }
-
 }

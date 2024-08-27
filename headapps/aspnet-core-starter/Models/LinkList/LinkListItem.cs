@@ -7,5 +7,4 @@ namespace Sitecore.AspNetCore.Starter.Models
         [JsonPropertyName("field")]
         public LinkListItemField? Field { get; set; }
     }
-
 }

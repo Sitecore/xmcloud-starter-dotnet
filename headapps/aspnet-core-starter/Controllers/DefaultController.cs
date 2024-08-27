@@ -5,12 +5,20 @@ using Sitecore.AspNetCore.SDK.RenderingEngine.Interfaces;
 
 namespace Sitecore.AspNetCore.Starter.Controllers
 {
-    public class DefaultController(ILogger<DefaultController> logger) : Controller
+    public class DefaultController : Controller
     {
-        private const string EDITING_PATH = "/api/editing/config";
+        private SitecoreSettings? settings;
+        private readonly ILogger<DefaultController> logger;
+
+        public DefaultController(ILogger<DefaultController> logger, IConfiguration configuration)
+        {
+            settings = configuration.GetSection(SitecoreSettings.Key).Get<SitecoreSettings>();
+            ArgumentNullException.ThrowIfNull(settings);
+            this.logger = logger;
+        }
 
         [UseSitecoreRendering]
-        public IActionResult Index()
+        public IActionResult Index(Layout model)
         {
             var request = HttpContext.GetSitecoreRenderingContext();
             if ((request?.Response?.HasErrors ?? false) && !IsPageEditingRequest(request))
@@ -26,12 +34,12 @@ namespace Sitecore.AspNetCore.Starter.Controllers
                 }
             }
                 
-            return View();
+            return View(model);
         }
 
-        private static bool IsPageEditingRequest(ISitecoreRenderingContext request)
+        private bool IsPageEditingRequest(ISitecoreRenderingContext request)
         {
-            return request.Controller?.HttpContext.Request.Path == EDITING_PATH;
+            return request.Controller?.HttpContext.Request.Path == (settings?.EditingPath ?? string.Empty);
         }
     }
 }

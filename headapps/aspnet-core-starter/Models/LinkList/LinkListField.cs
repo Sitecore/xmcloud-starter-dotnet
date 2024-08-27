@@ -8,5 +8,4 @@ namespace Sitecore.AspNetCore.Starter.Models
         [JsonPropertyName("title")]
         public TextField? Title { get; set; }
     }
-
 }

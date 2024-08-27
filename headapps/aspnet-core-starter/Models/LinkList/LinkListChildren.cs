@@ -7,5 +7,4 @@ namespace Sitecore.AspNetCore.Starter.Models
         [JsonPropertyName("results")]
         public List<LinkListItem>? Results { get; set; }
     }
-
 }
