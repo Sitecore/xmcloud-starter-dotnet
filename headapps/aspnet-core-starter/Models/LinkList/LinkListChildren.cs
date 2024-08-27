@@ -1,10 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Sitecore.AspNetCore.Starter.Models
+namespace Sitecore.AspNetCore.Starter.Models;
+
+public class LinkListChildren
 {
-    public class LinkListChildren
-    {
-        [JsonPropertyName("results")]
-        public List<LinkListItem>? Results { get; set; }
-    }
+    [JsonPropertyName("results")]
+    public List<LinkListItem>? Results { get; set; }
 }

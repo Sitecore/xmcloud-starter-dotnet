@@ -1,22 +1,21 @@
 ﻿using Sitecore.AspNetCore.SDK.LayoutService.Client.Response.Model.Fields;
 using Sitecore.AspNetCore.SDK.RenderingEngine.Binding.Attributes;
 
-namespace Sitecore.AspNetCore.Starter.Models
+namespace Sitecore.AspNetCore.Starter.Models;
+
+public class PageContent : BaseModel
 {
-    public class PageContent : BaseModel
+    [SitecoreRouteField(Name = "Content")]
+    public RichTextField? RouteContent { get; set; }
+
+    [SitecoreComponentField(Name = "Content")]
+    public RichTextField? ComponentContent { get; set; }
+
+    public RichTextField? Content
     {
-        [SitecoreRouteField(Name = "Content")]
-        public RichTextField? RouteContent { get; set; }
-
-        [SitecoreComponentField(Name = "Content")]
-        public RichTextField? ComponentContent { get; set; }
-
-        public RichTextField? Content
+        get
         {
-            get
-            {
-                return ComponentContent ?? RouteContent;
-            }
+            return ComponentContent ?? RouteContent;
         }
     }
 }

@@ -3,43 +3,42 @@ using Sitecore.AspNetCore.SDK.LayoutService.Client.Exceptions;
 using Sitecore.AspNetCore.SDK.RenderingEngine.Attributes;
 using Sitecore.AspNetCore.SDK.RenderingEngine.Interfaces;
 
-namespace Sitecore.AspNetCore.Starter.Controllers
+namespace Sitecore.AspNetCore.Starter.Controllers;
+
+public class DefaultController : Controller
 {
-    public class DefaultController : Controller
+    private SitecoreSettings? settings;
+    private readonly ILogger<DefaultController> logger;
+
+    public DefaultController(ILogger<DefaultController> logger, IConfiguration configuration)
     {
-        private SitecoreSettings? settings;
-        private readonly ILogger<DefaultController> logger;
+        settings = configuration.GetSection(SitecoreSettings.Key).Get<SitecoreSettings>();
+        ArgumentNullException.ThrowIfNull(settings);
+        this.logger = logger;
+    }
 
-        public DefaultController(ILogger<DefaultController> logger, IConfiguration configuration)
+    [UseSitecoreRendering]
+    public IActionResult Index(Layout model)
+    {
+        var request = HttpContext.GetSitecoreRenderingContext();
+        if ((request?.Response?.HasErrors ?? false) && !IsPageEditingRequest(request))
         {
-            settings = configuration.GetSection(SitecoreSettings.Key).Get<SitecoreSettings>();
-            ArgumentNullException.ThrowIfNull(settings);
-            this.logger = logger;
-        }
-
-        [UseSitecoreRendering]
-        public IActionResult Index(Layout model)
-        {
-            var request = HttpContext.GetSitecoreRenderingContext();
-            if ((request?.Response?.HasErrors ?? false) && !IsPageEditingRequest(request))
+            foreach (SitecoreLayoutServiceClientException error in request.Response.Errors)
             {
-                foreach (SitecoreLayoutServiceClientException error in request.Response.Errors)
+                switch (error)
                 {
-                    switch (error)
-                    {
-                        default:
-                            logger.LogError(error, error.Message);
-                            throw error;
-                    }
+                    default:
+                        logger.LogError(error, error.Message);
+                        throw error;
                 }
             }
+        }
                 
-            return View(model);
-        }
+        return View(model);
+    }
 
-        private bool IsPageEditingRequest(ISitecoreRenderingContext request)
-        {
-            return request.Controller?.HttpContext.Request.Path == (settings?.EditingPath ?? string.Empty);
-        }
+    private bool IsPageEditingRequest(ISitecoreRenderingContext request)
+    {
+        return request.Controller?.HttpContext.Request.Path == (settings?.EditingPath ?? string.Empty);
     }
 }

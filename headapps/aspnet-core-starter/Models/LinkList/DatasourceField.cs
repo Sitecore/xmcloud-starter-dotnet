@@ -1,13 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Sitecore.AspNetCore.Starter.Models
-{
-    public class DatasourceField
-    {
-        [JsonPropertyName("field")]
-        public LinkListField? Field { get; set; }
+namespace Sitecore.AspNetCore.Starter.Models;
 
-        [JsonPropertyName("children")]
-        public LinkListChildren? Children { get; set; }
-    }
+public class DatasourceField
+{
+    [JsonPropertyName("field")]
+    public LinkListField? Field { get; set; }
+
+    [JsonPropertyName("children")]
+    public LinkListChildren? Children { get; set; }
 }

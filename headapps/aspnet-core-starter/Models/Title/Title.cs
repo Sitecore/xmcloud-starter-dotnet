@@ -2,41 +2,40 @@
 using Sitecore.AspNetCore.SDK.LayoutService.Client.Response.Model.Properties;
 using Sitecore.AspNetCore.SDK.RenderingEngine.Binding.Attributes;
 
-namespace Sitecore.AspNetCore.Starter.Models.Title
+namespace Sitecore.AspNetCore.Starter.Models.Title;
+
+public class Title : BaseModel
 {
-    public class Title : BaseModel
+    [SitecoreComponentField(Name = "data")]            
+    public TitleData? Data { get; set; }
+
+    public HyperLinkField Link 
+    { 
+        get 
+        {
+            return new HyperLinkField(
+                    new HyperLink
+                    {
+                        Anchor = TitleLocation?.Url?.Path,
+                        Title = TitleLocation?.Field?.JsonValue?.Value
+                    });
+        }
+    }
+
+    public TextField Text
     {
-        [SitecoreComponentField(Name = "data")]            
-        public TitleData? Data { get; set; }
-
-        public HyperLinkField Link 
-        { 
-            get 
-            {
-                return new HyperLinkField(
-                        new HyperLink
-                        {
-                            Anchor = TitleLocation?.Url?.Path,
-                            Title = TitleLocation?.Field?.JsonValue?.Value
-                        });
-            }
+        get
+        {   
+            return new TextField(TitleLocation?.Field?.JsonValue?.Value ?? string.Empty);
         }
+    }
 
-        public TextField Text
+
+    public TitleLocation? TitleLocation
+    {
+        get
         {
-            get
-            {   
-                return new TextField(TitleLocation?.Field?.JsonValue?.Value ?? string.Empty);
-            }
-        }
-
-
-        public TitleLocation? TitleLocation
-        {
-            get
-            {
-                return Data?.DataSource ?? Data?.ContextItem;                
-            }
+            return Data?.DataSource ?? Data?.ContextItem;                
         }
     }
 }
