@@ -9,6 +9,7 @@ The following are known issues that are being worked on:
 - **Navigation Component** - The OOTB Navigation component provided by XM Cloud currently isn't supported. This is being worked on and will be available in a future release. If you add the component to a page it can break deserialisation of the layout object and stop the page from rendering. In that scenario you will need to remove the component via the Content Editor. **Due to this reason the Skate Park Template is not currently supported, unless you manually remove the Navigation component from the Header Partial Design.**
 - **Front End as a Service (FEaaS)** - The FEaaS components are not yet available in the pre-release version of the Starter Kit.
 - **Forms** - The Forms components are not yet available in the pre-release version of the Starter Kit.
+- **Skate Park** - The Skate Park Template is currently only partially supported. For it to run you need to manually remove the `Navigation` component from the Header Partial Design. This is due to the Navigation component not being supported yet, as per the comment above.
 
 ## GitHub Template
 This Github repository is a template that can be used to create your own repository. To get started, click the `Use this template` button at the top of the repository. 
@@ -19,14 +20,14 @@ This Github repository is a template that can be used to create your own reposit
 
 ## Getting Started Guide
 > [!NOTE]
-> The XM Cloud Getting Started Guide currently only caters for Next.js applications. As part of the work in getting the ASP.NET Core Starter Kit ready for release, the documentation will be updated to include the steps required to get started with the ASP.NET Core Starter Kit. For now a temporary section will be added below which will quickly walk through the process.
+> The XM Cloud Getting Started Guide currently only caters for Next.js applications. As part of the work in getting the ASP.NET Core Starter Kit ready for release, the documentation will be updated to include the steps required to get started with the ASP.NET Core Starter Kit. For now a temporary section has been added below which will quickly walk through the process.
 
-For developers new to XM Cloud you can follow the Getting Started Guide on the [Sitecore Documentation Site](https://doc.sitecore.com/xmc) to get up and running with XM Cloud. This will walk you through the process of creating a new XM Cloud Project, provisioning an Environment, deploying the ASP.Net Core Starter Kit, and finally creating your first Component.
+~~For developers new to XM Cloud you can follow the Getting Started Guide on the [Sitecore Documentation Site](https://doc.sitecore.com/xmc) to get up and running with XM Cloud. This will walk you through the process of creating a new XM Cloud Project, provisioning an Environment, deploying the ASP.Net Core Starter Kit, and finally creating your first Component.~~
 
 ### Running the ASP.NET Core Starter Kit
 > [!NOTE]
 > Temporary steps to get the ASP.NET Core Starter Kit up and running. This will be removed when the documentation Getting Started Guide is updated to include the ASP.NET Core Starter Kit steps.
-> This is also current using the "old" connection method and needs to be updated to use the newer "ContextID" approach.
+> This is also current using the "old" connection method and needs to be updated to use the newer "ContextID" approach when supported.
 
 1. Create a repository from this template.
 2. Log into the [Sitecore Deploy Portal](https://deploy.sitecorecloud.io/)
