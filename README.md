@@ -69,9 +69,6 @@ This Github repository is a template that can be used to create your own reposit
 29. Click on the Pages icon
 30. You will be taken to your Pages instance, which is now connected to the head application running on your local devleoper machine. You can now add and remove components from the page and see the changes reflected in real-time. Please note the known issues stated above to see which components are not yet supported.
 
-## Building SASS Stylesheet
-The included SASS stylesheets are built using the `Web Compiler` extension for Visual Studio. This decision was taken to remove the need for a Node dependency being required to build the stylesheets. The `Web Compiler` extension will automatically compile the SASS files into CSS when the solution is built. If you do not have the `Web Compiler` extension installed you can download it from the Visual Studio Marketplace [here](https://marketplace.visualstudio.com).
-
 ## Disconnected offline development
 It is possible to mock a small subset of the XM Cloud Application elements to enable offline development. This can allow for a disconnected development experience, however it is recommend to work in the default connected mode.
 
