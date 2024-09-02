@@ -29,12 +29,12 @@ services:
       context: ../
       dockerfile: ./local-containers/docker/build/aspnet-core-starter/Dockerfile
       args:
-        BUILD_IMAGE: ${NETCORE_BUILD_IMAGE}-${EXTERNAL_IMAGE_TAG_SUFFIX}
-        RUNTIME_IMAGE: ${NETCORE_RUNTIME_IMAGE}-${EXTERNAL_IMAGE_TAG_SUFFIX}
-        ENTRYPOINT_ASSEMBLY: aspnet-core-starter.dll
+        BASE_IMAGE: ${NETCORE_BUILD_IMAGE}-${EXTERNAL_IMAGE_TAG_SUFFIX}
+        PROJECT_FILE: ./headapps/aspnet-core-starter/aspnet-core-starter.csproj
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://*:80"
+      DOTNET_WATCH_RESTART_ON_RUDE_EDIT: true
       MVP_RENDERING_EDITING_HOST_URI: "http://aspnet-core-starter"
       Sitecore__InstanceUri: "http://cm"
       Sitecore__LayoutServicePath: "/sitecore/api/graph/edge/"
@@ -44,6 +44,21 @@ services:
       Sitecore__DefaultSiteName: ${SITE_NAME}
     ports:
       - "80:80"
+    command: ["dotnet", "watch", "run", -v, "--urls", "http://*:80"]
+    volumes:
+      - type: bind
+        source: .\..\headapps\aspnet-core-starter
+        target: c:\app
+      - type: volume
+        source: objvol
+        target: c:\app\obj
+        volume:
+          nocopy: true
+      - type: volume
+        source: binvol
+        target: c:\app\bin
+        volume:
+          nocopy: true
     depends_on:
       - cm
     labels:
@@ -79,3 +94,9 @@ services:
       SITECORE_DEVELOPMENT_PATCHES: DevEnvOn,CustomErrorsOff,DebugOn,DiagnosticsOff,InitMessagesOff
       Sitecore_AppSettings_exmEnabled:define: "no" # remove to turn on EXM
     entrypoint: powershell -Command "& C:/tools/entrypoints/iis/XmCloudDevelopment.ps1"
+
+volumes:
+  binvol:
+    name: "bin-data"
+  objvol:
+    name: "obj-data"
