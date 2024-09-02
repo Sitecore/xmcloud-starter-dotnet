@@ -9,7 +9,5 @@ COPY ./nuget.config .
 RUN dotnet restore
 
 COPY ./headapps/aspnet-core-starter ./
-#RUN if not exist "obj" mkdir "obj"
-#RUN if not exist "bin" mkdir "bin"
 
 CMD ["dotnet", "watch", "run", -v, "--urls", "http://*:80"]
