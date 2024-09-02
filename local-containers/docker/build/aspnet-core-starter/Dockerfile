@@ -4,9 +4,8 @@ ARG PROJECT_FILE
 WORKDIR /app
 
 COPY ${PROJECT_FILE} .
-COPY ./headapps/Directory.Packages.props .
-COPY ./nuget.config .
-RUN dotnet restore
+COPY ./headapps/Directory.Packages.props ./../
+COPY ./nuget.config ./../
 
 COPY ./headapps/aspnet-core-starter ./
 
