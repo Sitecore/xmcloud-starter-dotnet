@@ -45,6 +45,11 @@ public class DefaultController : Controller
         return result;
     }
 
+    public IActionResult Error()
+    {
+        return View();
+    }
+
     private bool IsPageEditingRequest(ISitecoreRenderingContext request)
     {
         return request.Controller?.HttpContext.Request.Path == (_settings?.EditingPath ?? string.Empty);
