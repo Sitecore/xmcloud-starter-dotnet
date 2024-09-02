@@ -7,38 +7,46 @@ namespace Sitecore.AspNetCore.Starter.Controllers;
 
 public class DefaultController : Controller
 {
-    private SitecoreSettings? settings;
-    private readonly ILogger<DefaultController> logger;
+    private readonly SitecoreSettings? _settings;
+    private readonly ILogger<DefaultController> _logger;
 
     public DefaultController(ILogger<DefaultController> logger, IConfiguration configuration)
     {
-        settings = configuration.GetSection(SitecoreSettings.Key).Get<SitecoreSettings>();
-        ArgumentNullException.ThrowIfNull(settings);
-        this.logger = logger;
+        _settings = configuration.GetSection(SitecoreSettings.Key).Get<SitecoreSettings>();
+        ArgumentNullException.ThrowIfNull(_settings);
+        _logger = logger;
     }
 
     [UseSitecoreRendering]
     public IActionResult Index(Layout model)
     {
-        var request = HttpContext.GetSitecoreRenderingContext();
+        IActionResult result = Empty;
+        ISitecoreRenderingContext? request = HttpContext.GetSitecoreRenderingContext();
         if ((request?.Response?.HasErrors ?? false) && !IsPageEditingRequest(request))
         {
             foreach (SitecoreLayoutServiceClientException error in request.Response.Errors)
             {
                 switch (error)
                 {
+                    case ItemNotFoundSitecoreLayoutServiceClientException:
+                        result = View("NotFound");
+                        break;
                     default:
-                        logger.LogError(error, error.Message);
+                        _logger.LogError(error, "{Message}", error.Message);
                         throw error;
                 }
             }
         }
+        else
+        {
+            result = View(model);
+        }
                 
-        return View(model);
+        return result;
     }
 
     private bool IsPageEditingRequest(ISitecoreRenderingContext request)
     {
-        return request.Controller?.HttpContext.Request.Path == (settings?.EditingPath ?? string.Empty);
+        return request.Controller?.HttpContext.Request.Path == (_settings?.EditingPath ?? string.Empty);
     }
 }
