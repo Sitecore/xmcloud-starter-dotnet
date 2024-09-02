@@ -35,6 +35,7 @@ services:
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://*:80"
       DOTNET_WATCH_RESTART_ON_RUDE_EDIT: true
+      DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER: true
       MVP_RENDERING_EDITING_HOST_URI: "http://aspnet-core-starter"
       Sitecore__InstanceUri: "http://cm"
       Sitecore__LayoutServicePath: "/sitecore/api/graph/edge/"
@@ -46,19 +47,9 @@ services:
       - "80:80"
     command: ["dotnet", "watch", "run", -v, "--urls", "http://*:80"]
     volumes:
-      - type: bind
-        source: .\..\headapps\aspnet-core-starter
-        target: c:\app
-      - type: volume
-        source: objvol
-        target: c:\app\obj
-        volume:
-          nocopy: true
-      - type: volume
-        source: binvol
-        target: c:\app\bin
-        volume:
-          nocopy: true
+      - .\..\headapps\aspnet-core-starter:c:\app
+      - c:\app\obj
+      - c:\app\bin
     depends_on:
       - cm
     labels:
@@ -94,9 +85,3 @@ services:
       SITECORE_DEVELOPMENT_PATCHES: DevEnvOn,CustomErrorsOff,DebugOn,DiagnosticsOff,InitMessagesOff
       Sitecore_AppSettings_exmEnabled:define: "no" # remove to turn on EXM
     entrypoint: powershell -Command "& C:/tools/entrypoints/iis/XmCloudDevelopment.ps1"
-
-volumes:
-  binvol:
-    name: "bin-data"
-  objvol:
-    name: "obj-data"
