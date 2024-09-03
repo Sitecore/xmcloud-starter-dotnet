@@ -12,7 +12,6 @@ builder.Services.AddRouting()
                 .AddMvc();
 
 builder.Services.AddSitecoreLayoutService()
-                .AddSystemTextJson()
                 .AddGraphQlHandler("default", sitecoreSettings.DefaultSiteName!, sitecoreSettings.ExperienceEdgeToken!, sitecoreSettings.LayoutServiceUri!)
                 .AsDefaultHandler();
 
