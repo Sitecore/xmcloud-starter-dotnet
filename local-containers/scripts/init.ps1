@@ -1,6 +1,6 @@
 [CmdletBinding(DefaultParameterSetName = "no-arguments")]
 Param (
-    [Parameter(HelpMessage = "Enables initialization of values in the .env file, which may be placed in source control.",
+    [Parameter(HelpMessage = "Enables initialization of values in the .env file.",
         ParameterSetName = "env-init")]
     [switch]$InitEnv,
 
@@ -64,6 +64,14 @@ Write-Host "Importing SitecoreDockerTools..." -ForegroundColor Green
 Import-Module SitecoreDockerTools -RequiredVersion $dockerToolsVersion
 Write-SitecoreDockerWelcome
 
+##################
+# Create .env file
+##################
+if ($InitEnv) {
+    Write-Host "Creating .env file." -ForegroundColor Green
+    Copy-Item "..\.env.template" "..\.env" -Force
+}
+
 ##################################
 # Configure TLS/HTTPS certificates
 ##################################
@@ -111,24 +119,24 @@ Add-HostsEntry "www.aspnetcore-starter.localhost"
 ################################
 # Generate Sitecore Api Key
 ################################
-
-$sitecoreApiKey = (New-Guid).Guid
-Set-EnvFileVariable "SITECORE_API_KEY_ASPNETCORE_STARTER" -Value $sitecoreApiKey -Path $envFileLocation
+if ($InitEnv) {
+    $sitecoreApiKey = (New-Guid).Guid
+    Set-EnvFileVariable "SITECORE_API_KEY_ASPNETCORE_STARTER" -Value $sitecoreApiKey -Path $envFileLocation
+}
 
 ################################
 # Generate EDITING_SECRET
 ################################
-$editingSecret = Get-SitecoreRandomString 64 -DisallowSpecial
-Set-EnvFileVariable "EDITING_SECRET" -Value $editingSecret -Path $envFileLocation
+if ($InitEnv) {
+    $editingSecret = Get-SitecoreRandomString 64 -DisallowSpecial
+    Set-EnvFileVariable "EDITING_SECRET" -Value $editingSecret -Path $envFileLocation
+}
 
 ###############################
 # Populate the environment file
 ###############################
 
 if ($InitEnv) {
-
-    
-
     Write-Host "Populating required .env file values..." -ForegroundColor Green
 
     # HOST_LICENSE_FOLDER

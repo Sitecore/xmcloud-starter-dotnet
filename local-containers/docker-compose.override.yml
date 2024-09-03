@@ -29,12 +29,13 @@ services:
       context: ../
       dockerfile: ./local-containers/docker/build/aspnet-core-starter/Dockerfile
       args:
-        BUILD_IMAGE: ${NETCORE_BUILD_IMAGE}-${EXTERNAL_IMAGE_TAG_SUFFIX}
-        RUNTIME_IMAGE: ${NETCORE_RUNTIME_IMAGE}-${EXTERNAL_IMAGE_TAG_SUFFIX}
-        ENTRYPOINT_ASSEMBLY: aspnet-core-starter.dll
+        BASE_IMAGE: ${NETCORE_BUILD_IMAGE}-${EXTERNAL_IMAGE_TAG_SUFFIX}
+        PROJECT_FILE: ./headapps/aspnet-core-starter/aspnet-core-starter.csproj
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://*:80"
+      DOTNET_WATCH_RESTART_ON_RUDE_EDIT: true
+      DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER: true
       MVP_RENDERING_EDITING_HOST_URI: "http://aspnet-core-starter"
       Sitecore__InstanceUri: "http://cm"
       Sitecore__LayoutServicePath: "/sitecore/api/graph/edge/"
@@ -44,6 +45,11 @@ services:
       Sitecore__DefaultSiteName: ${SITE_NAME}
     ports:
       - "80:80"
+    command: ["dotnet", "watch", "run", -v, "--urls", "http://*:80"]
+    volumes:
+      - .\..\headapps\aspnet-core-starter:c:\app
+      - c:\app\obj
+      - c:\app\bin
     depends_on:
       - cm
     labels:

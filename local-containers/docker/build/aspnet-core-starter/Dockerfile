@@ -1,20 +1,12 @@
-ARG BUILD_IMAGE
-ARG RUNTIME_IMAGE
-
-FROM ${BUILD_IMAGE} AS build
-WORKDIR /source
-
-COPY ./headapps ./
-COPY ./nuget.config ./
-RUN dotnet restore
-RUN dotnet publish -c Debug -o /app --no-restore
-
-FROM ${RUNTIME_IMAGE}
-ARG ENTRYPOINT_ASSEMBLY
-ENV ENTRYPOINT_ASSEMBLY="${ENTRYPOINT_ASSEMBLY}"
-
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+ARG PROJECT_FILE
 WORKDIR /app
-COPY --from=build /app ./
-EXPOSE 80
-EXPOSE 443
-ENTRYPOINT dotnet %ENTRYPOINT_ASSEMBLY%
+
+COPY ${PROJECT_FILE} .
+COPY ./headapps/Directory.Packages.props ./../
+COPY ./nuget.config ./../
+
+COPY ./headapps/aspnet-core-starter ./
+
+CMD ["dotnet", "watch", "run", -v, "--urls", "http://*:80"]
