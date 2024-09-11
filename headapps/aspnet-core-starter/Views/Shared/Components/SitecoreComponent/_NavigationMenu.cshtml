@@ -12,9 +12,7 @@
                     <sc-text asp-for="@navItem.NavigationTitle"></sc-text>
                 </a>
             </div>
-            @{ 
-                @await Html.PartialAsync("./_NavigationMenu.cshtml", new Navigation(navItem.Children, Model.MenuLevel + 1))
-             }
+            @await Html.PartialAsync("./_NavigationMenu.cshtml", new Navigation(navItem.Children, Model.MenuLevel + 1))
         </li>
     }
 </ul>
