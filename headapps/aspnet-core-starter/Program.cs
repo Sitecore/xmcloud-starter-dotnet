@@ -12,7 +12,7 @@ builder.Services.AddRouting()
                 .AddMvc();
 
 builder.Services.AddSitecoreLayoutService()
-                .AddGraphQlHandler("default", sitecoreSettings.DefaultSiteName!, sitecoreSettings.ExperienceEdgeToken!, sitecoreSettings.LayoutServiceUri!)
+                .AddGraphQlWithContextHandler("default", sitecoreSettings.EdgeContextId!, siteName: sitecoreSettings.DefaultSiteName!)
                 .AsDefaultHandler();
 
 builder.Services.AddSitecoreRenderingEngine(options =>
