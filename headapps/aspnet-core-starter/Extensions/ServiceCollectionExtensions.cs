@@ -1,5 +1,6 @@
 ﻿using Sitecore.AspNetCore.SDK.RenderingEngine.Configuration;
 using Sitecore.AspNetCore.Starter.Models.LinkList;
+using Sitecore.AspNetCore.Starter.Models.Navigation;
 using Sitecore.AspNetCore.Starter.Models.Title;
 
 namespace Sitecore.AspNetCore.Starter.Extensions;
@@ -17,8 +18,9 @@ public static class ServiceCollectionExtensions
                               .AddModelBoundView<Promo>("Promo")
                               .AddModelBoundView<LinkList>("LinkList")
                               .AddModelBoundView<Image>("Image")
-                              .AddModelBoundView<PartialDesignDynamicPlaceholder>("PartialDesignDynamicPlaceholder");
-        
+                              .AddModelBoundView<PartialDesignDynamicPlaceholder>("PartialDesignDynamicPlaceholder")
+                              .AddModelBoundView<Navigation>("Navigation");
+
         return renderingEngineOptions;
     }
 }

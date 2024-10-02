@@ -6,10 +6,8 @@ This repository contains the ASP.NET Core Starter Kit for Sitecore XM Cloud Deve
 > This is a pre-release version of the starter kit and is built against the pre-release version of the ASP.NET Core SDK. As such, there may be some issues with the project that are not yet resolved. If you encounter any issues, please report them in the [Issues](https://github.com/Sitecore/xmcloud-starter-aspnetcore/issues) section of the repo.
 
 The following are known issues that are being worked on:
-- **Navigation Component** - The OOTB Navigation component provided by XM Cloud currently isn't supported. This is being worked on and will be available in a future release. If you add the component to a page it can break deserialisation of the layout object and stop the page from rendering. In that scenario you will need to remove the component via the Content Editor. **Due to this reason the Skate Park Template is not currently supported, unless you manually remove the Navigation component from the Header Partial Design.**
 - **Front End as a Service (FEaaS)** - The FEaaS components are not yet available in the pre-release version of the Starter Kit.
 - **Forms** - The Forms components are not yet available in the pre-release version of the Starter Kit.
-- **Skate Park** - The Skate Park Template is currently only partially supported. For it to run you need to manually remove the `Navigation` component from the Header Partial Design. This is due to the Navigation component not being supported yet, as per the comment above.
 
 ## GitHub Template
 This Github repository is a template that can be used to create your own repository. To get started, click the `Use this template` button at the top of the repository. 

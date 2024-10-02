@@ -1,6 +1,6 @@
 <Project>
     <PropertyGroup>
-        <AspNetCoreSdkVersion>0.0.7</AspNetCoreSdkVersion>
+        <AspNetCoreSdkVersion>0.0.9</AspNetCoreSdkVersion>
     </PropertyGroup>
     <PropertyGroup>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
