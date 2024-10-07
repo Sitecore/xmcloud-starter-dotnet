@@ -47,3 +47,6 @@ _ReSharper*/
 
 #Nuget packages folder
 packages/
+
+# developer configs
+appsettings.Development.json

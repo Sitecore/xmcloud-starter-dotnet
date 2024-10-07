@@ -25,7 +25,6 @@ This Github repository is a template that can be used to create your own reposit
 ### Running the ASP.NET Core Starter Kit
 > [!NOTE]
 > Temporary steps to get the ASP.NET Core Starter Kit up and running. This will be removed when the documentation Getting Started Guide is updated to include the ASP.NET Core Starter Kit steps.
-> This is also current using the "old" connection method and needs to be updated to use the newer "ContextID" approach when supported.
 
 1. Create a repository from this template.
 2. Log into the [Sitecore Deploy Portal](https://deploy.sitecorecloud.io/)
@@ -34,38 +33,34 @@ This Github repository is a template that can be used to create your own reposit
 5. Click on the Sites link in the top menu
 6. Click the Create Site button
 7. Select the 'Empty Site' template
-8. Enter a name for the site and click the Create site button. Make a note of the chosen site name.
-9. When completed click the `Tools` link in the top menu
-10. Click the `Content Editor` button
-11. When the Content Editor loads, make a note of the URL it loads under.
-12. Navigate to `/sitecore/system/Settings/Services/API Keys`
-13. Right-click on the API Keys Folder Item and choose `Insert -> API Key`.
-14. Give the API Key a name and click the OK button.
-15. Make a note of the generated Item ID (This is located in the Quick Info panel).
-16. Set the following Field values on the API Key item, and click Save to persist the changes.
-    - `CORS Origins` - `*`
-    - `Allowed Controllers` - `*`
-17. Return to the Deploy application, and find the Environment you created earlier.
-18. Click on the Developer Settings button and make note of the `JSS_EDITING_SECRET` value shown.
-19. Clone the repository to your local machine.
-20. Open the `./headapps/aspnet-core-starter.sln` solution in Visual Studio.
-21. Open the `appsettings.json` file in the `aspnet-core-starter` project.
-22. Set the following values in the `Sitecore` section of the `appsettings.json` file:
-    - `InstanceUri` - The url to the XM Cloud instance which you recorded in step 11. It should be in the format: `https://xmc-XXX-XXX-XXX.sitecorecloud.io/`
-    - `DefaultSiteName` - The name of the Site created in step 8.
-    - `ExperienceEdgeToken` - The Item ID of the API Key created in step 14.
-    - `EditingSecret` - The JSS_EDITING_SECRET value from step 17.
-23. Create a local dev tunnel in Visual Studio by following this [guide](https://learn.microsoft.com/en-us/connectors/custom-connectors/port-tunneling)
-24. Hit F5 to run the application from Visual Studio, ensuring you have enabled your dev tunnel.
-25. When the page loads make a note of the URL, it should in the format `https://XXXX.devtunnels.ms/`. If successful you should see a plan white page rendered.
-26. Return to the Content Editor
-27. Navigate to the `/sitecore/system/Settings/Services/Rendering Hosts/Default` item, and set the following values, ensuring you save the changes:
+
+8. Return to the Deploy application, and find the Environment you created earlier.
+9. Ensure the `Context` toggle is set to `Preview` otherwise you wont see any changes you make till they're published.
+10. Click on the Developer Settings tab and make note of the `JSS_EDITING_SECRET` and `SITECORE_EDGE_CONTEXT_ID` values shown.
+11. Clone the repository to your local machine.
+12. Open the `./headapps/aspnet-core-starter.sln` solution in Visual Studio.
+13. Make a copy the `appsettings.json` file in the `aspnet-core-starter` project, and name it `appsettings.Development.json`.
+14. Set the following values in the `Sitecore` section of the `appsettings.json` file:
+    - `EdgeContextId` - The `SITECORE_EDGE_CONTEXT_ID` value from step 10.
+    - `EditingSecret` - The `JSS_EDITING_SECRET` value from step 10.
+15. Run the application from within Visual Studio by hitting F5, or using the dotnet CLI with `dotnet run`.
+16. You will now be able to access the application at `https://localhost:5001/`.
+
+### Connecting Pages to your locally running application
+> [!NOTE]
+> Temporary steps to connect Pages to your locally running application. This will be updated Meta Page Editing mode is supported.
+
+1. Open `./headapps/aspnet-core-starter.sln` in Visual Studio then Create a local dev tunnel by following this [guide](https://learn.microsoft.com/en-us/connectors/custom-connectors/port-tunneling)
+2. Hit F5 to run the application from Visual Studio, ensuring you have enabled your dev tunnel.
+3. When the page loads make a note of the URL, it should in the format `https://XXXX.devtunnels.ms/`. If successful you should see a plan white page rendered.
+4. Return to the Content Editor
+5. Navigate to the `/sitecore/system/Settings/Services/Rendering Hosts/Default` item, and set the following values, ensuring you save the changes:
     - `Server side rendering engine endpoint URL` - `https://<<TUNNEL_URL>>/jss-render`
     - `Server side rendering engine application URL` - `https://<<TUNNEL_URL>>`
     - `Server side rendering engine configuration URL` - `https://<<TUNNEL_URL>>/api/editing/config`
-28. Click the Home icon in the top left corner of the Content Editor (the nine square grid icon).
-29. Click on the Pages icon
-30. You will be taken to your Pages instance, which is now connected to the head application running on your local devleoper machine. You can now add and remove components from the page and see the changes reflected in real-time. Please note the known issues stated above to see which components are not yet supported.
+6. Click the Home icon in the top left corner of the Content Editor (the nine square grid icon).
+7. Click on the Pages icon
+8. You will be taken to your Pages instance, which is now connected to the head application running on your local devleoper machine. You can now add and remove components from the page and see the changes reflected in real-time. Please note the known issues stated above to see which components are not yet supported.
 
 ## Disconnected offline development
 It is possible to mock a small subset of the XM Cloud Application elements to enable offline development. This can allow for a disconnected development experience, however it is recommend to work in the default connected mode.
