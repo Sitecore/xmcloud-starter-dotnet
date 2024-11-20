@@ -18,7 +18,7 @@ public partial class Container : BaseModel
             if (!string.IsNullOrEmpty(BackgroundImage) && MediaUrlPattern().IsMatch(BackgroundImage))
             {
                 string mediaUrl = MediaUrlPattern().Match(BackgroundImage).Groups[1].Value;
-                return $"backgroundImage: url('{mediaUrl}')";
+                return $"background-image: url('{mediaUrl}')";
             }
 
             return string.Empty;
