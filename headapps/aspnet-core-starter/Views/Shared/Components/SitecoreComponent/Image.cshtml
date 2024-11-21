@@ -1,37 +1,41 @@
 ﻿@model Sitecore.AspNetCore.Starter.Models.Image
 
+@{
+    bool isEditing = Model?.IsEditing ?? false;
+}
+
 @if (Model.FieldNames == Image.VARIANT_BANNER)
 {
-    bool isEditing = Model?.IsEditing ?? false;
+    
     string classHeroBannerEmpty = !isEditing && string.IsNullOrWhiteSpace(Model.ImageField?.Value.Src) ? "hero-banner-empty" : string.Empty;
     string backgroundStyle = !string.IsNullOrWhiteSpace(Model?.ImageField?.Value.Src) && !isEditing ? $"background-image: url('{@Model.ImageField?.Value.Src}')" : string.Empty;
 
-        <div class="component hero-banner @Model?.Styles @Model?.GridParameters @classHeroBannerEmpty" id="@Model?.Id">
-            <div class="component-content sc-sxa-image-hero-banner" style="@backgroundStyle">
+    <div class="component hero-banner @Model?.Styles @Model?.GridParameters @classHeroBannerEmpty" id="@Model?.Id">
+        <div class="component-content sc-sxa-image-hero-banner" style="@backgroundStyle">
             @if (isEditing)
             {
                 <div class="image">
                     <sc-img asp-for="@Model.ImageField" />
                 </div>
             }
-            </div>
         </div>
+    </div>
 }
 else
 {
     <div class="component image @Model.Styles @Model.GridParameters" id="@Model.Id">
         <div class="component-content">
             <span class="sc-image-wrapper">
-            @if (Model?.IsEditing ?? false || string.IsNullOrWhiteSpace(Model.TargetUrl?.Value.Href))
-            {
-                <sc-img asp-for="@Model.ImageField" />
-            }
-            else
-            {
-                <sc-link asp-for="@Model.TargetUrl">
+                @if (isEditing || string.IsNullOrWhiteSpace(Model.TargetUrl?.Value.Href))
+                {
                     <sc-img asp-for="@Model.ImageField" />
-                </sc-link>
-            }
+                }
+                else
+                {
+                    <sc-link asp-for="@Model.TargetUrl">
+                        <sc-img asp-for="@Model.ImageField" />
+                    </sc-link>
+                }
             </span>
             <span class="image-caption field-imagecaption">
                 <span asp-for="@Model.ImageCaption"></span>
