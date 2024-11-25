@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Localization;
+using Sitecore.AspNetCore.SDK.GraphQL.Extensions;
 using Sitecore.AspNetCore.Starter.Extensions;
 using System.Globalization;
 
@@ -10,6 +11,12 @@ ArgumentNullException.ThrowIfNull(sitecoreSettings);
 builder.Services.AddRouting()
                 .AddLocalization()
                 .AddMvc();
+
+builder.Services.AddGraphQlClient(configuration =>
+                {
+                    configuration.ContextId = sitecoreSettings.EdgeContextId;
+                })
+                .AddMultisite(); 
 
 builder.Services.AddSitecoreLayoutService()
                 .AddGraphQlWithContextHandler("default", sitecoreSettings.EdgeContextId!, siteName: sitecoreSettings.DefaultSiteName!)
@@ -41,6 +48,7 @@ if (sitecoreSettings.EnableEditingMode)
 }
 
 app.UseRouting();
+app.UseMultisite();
 app.UseStaticFiles();
 
 const string defaultLanguage = "en";
