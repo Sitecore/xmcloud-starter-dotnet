@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.Options;
 using Sitecore.AspNetCore.SDK.GraphQL.Extensions;
-using Sitecore.AspNetCore.SDK.RenderingEngine.Configuration;
 using Sitecore.AspNetCore.Starter.Extensions;
 using System.Globalization;
 
