@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Configuration;
 using Sitecore.AspNetCore.SDK.GraphQL.Extensions;
 using Sitecore.AspNetCore.Starter.Extensions;
 using System.Globalization;
@@ -18,9 +19,20 @@ builder.Services.AddGraphQlClient(configuration =>
                 })
                 .AddMultisite(); 
 
-builder.Services.AddSitecoreLayoutService()
-                .AddGraphQlWithContextHandler("default", sitecoreSettings.EdgeContextId!, siteName: sitecoreSettings.DefaultSiteName!)
-                .AsDefaultHandler();
+if (sitecoreSettings.EnableLocalContainer)
+{
+    // Register the GraphQL version of the Sitecore Layout Service Client for use against local container endpoint
+    builder.Services.AddSitecoreLayoutService()
+                    .AddGraphQlHandler("default", sitecoreSettings.DefaultSiteName!, sitecoreSettings.EdgeContextId!, sitecoreSettings.LocalContainerLayoutUri!)
+                    .AsDefaultHandler();
+}
+else
+{
+    // Register the GraphQL version of the Sitecore Layout Service Client for use against experience edge
+    builder.Services.AddSitecoreLayoutService()
+                    .AddGraphQlWithContextHandler("default", sitecoreSettings.EdgeContextId!, siteName: sitecoreSettings.DefaultSiteName!)
+                    .AsDefaultHandler();
+}
 
 builder.Services.AddSitecoreRenderingEngine(options =>
                     {

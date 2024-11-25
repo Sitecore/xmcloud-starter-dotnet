@@ -13,4 +13,8 @@ public class SitecoreSettings
     public bool EnableEditingMode { get; set; }
 
     public string? EditingPath { get; set; }
+
+    public bool EnableLocalContainer { get; set; }
+
+    public Uri? LocalContainerLayoutUri { get; set; }
 }
