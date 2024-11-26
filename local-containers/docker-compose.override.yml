@@ -37,10 +37,10 @@ services:
       DOTNET_WATCH_RESTART_ON_RUDE_EDIT: true
       DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER: true
       MVP_RENDERING_EDITING_HOST_URI: "http://aspnet-core-starter"
-      Sitecore__InstanceUri: "http://cm"
-      Sitecore__LayoutServicePath: "/sitecore/api/graph/edge/"
       Sitecore__EnableEditingMode: "true" 
-      Sitecore__ExperienceEdgeToken: ${SITECORE_API_KEY_ASPNETCORE_STARTER}
+      Sitecore__EnableLocalContainer: "true"
+      Sitecore__LocalContainerLayoutUri: "http://cm/sitecore/api/graph/edge"
+      Sitecore__EdgeContextId: ${SITECORE_API_KEY_ASPNETCORE_STARTER}
       Sitecore__EditingSecret: ${EDITING_SECRET}
       Sitecore__DefaultSiteName: ${SITE_NAME}
     ports:
