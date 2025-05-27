@@ -16,7 +16,7 @@ builder.Services.AddRouting()
                 .AddLocalization()
                 .AddMvc();
 
-builder.Services.AddGraphQlClient(configuration =>
+builder.Services.AddGraphQLClient(configuration =>
                 {
                     configuration.ContextId = sitecoreSettings.EdgeContextId;
                 })
@@ -27,7 +27,7 @@ if (sitecoreSettings.EnableLocalContainer)
     // Register the GraphQL version of the Sitecore Layout Service Client for use against local container endpoint
     builder.Services.AddSitecoreLayoutService()
                     .AddSitecorePagesHandler()
-                    .AddGraphQlHandler("default", sitecoreSettings.DefaultSiteName!, sitecoreSettings.EdgeContextId!, sitecoreSettings.LocalContainerLayoutUri!)
+                    .AddGraphQLHandler("default", sitecoreSettings.DefaultSiteName!, sitecoreSettings.EdgeContextId!, sitecoreSettings.LocalContainerLayoutUri!)
                     .AsDefaultHandler();
 }
 else
@@ -35,7 +35,7 @@ else
     // Register the GraphQL version of the Sitecore Layout Service Client for use against experience edge
     builder.Services.AddSitecoreLayoutService()
                     .AddSitecorePagesHandler()
-                    .AddGraphQlWithContextHandler("default", sitecoreSettings.EdgeContextId!, siteName: sitecoreSettings.DefaultSiteName!)
+                    .AddGraphQLWithContextHandler("default", sitecoreSettings.EdgeContextId!, siteName: sitecoreSettings.DefaultSiteName!)
                     .AsDefaultHandler();
 }
 
