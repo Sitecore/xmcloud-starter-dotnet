@@ -8,16 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Sitecore.AspNetCore.SDK.ExperienceEditor" />
+    <PackageReference Include="Sitecore.AspNetCore.SDK.LayoutService.Client" />
+    <PackageReference Include="Sitecore.AspNetCore.SDK.Pages" />
+    <PackageReference Include="Sitecore.AspNetCore.SDK.RenderingEngine" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Sitecore.AspNetCore.SDK.LayoutService.Client.Extensions" />
     <Using Include="Sitecore.AspNetCore.SDK.RenderingEngine.Extensions" />
     <Using Include="Sitecore.AspNetCore.SDK.ExperienceEditor.Extensions" />
     <Using Include="Sitecore.AspNetCore.Starter.Models" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Sitecore.AspNetCore.SDK.LayoutService.Client" />
-    <PackageReference Include="Sitecore.AspNetCore.SDK.RenderingEngine" />
-    <PackageReference Include="Sitecore.AspNetCore.SDK.ExperienceEditor" />
   </ItemGroup>
 
 </Project>
