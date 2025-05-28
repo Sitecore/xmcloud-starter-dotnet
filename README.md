@@ -48,19 +48,11 @@ This Github repository is a template that can be used to create your own reposit
 
 ### Connecting Pages to your locally running application
 
-1. Open `./headapps/aspnet-core-starter.sln` in Visual Studio then Create a local dev tunnel by following this [guide](https://learn.microsoft.com/en-us/connectors/custom-connectors/port-tunneling)
+1. Open `./headapps/aspnet-core-starter.sln` in Visual Studio.
 2. Hit F5 to run the application from Visual Studio.
-3. When the page loads make a note of the URL, it should in the format `https://localhost:<port>`. If successful you should see a plain white page rendered.
+3. When the page loads, make a note of the URL. It should be in the format `https://localhost:<port>`. If successful, you should see a plain white page rendered.
 4. In the Pages Editor, select `Localhost` for your editing host, and paste your localhost URL, including the port number.
-5. Alternatively, you can choose to run your visual studio application with [Dev Tunnels enabled](https://learn.microsoft.com/en-us/aspnet/core/test/dev-tunnels?view=aspnetcore-9.0). Please note the dev tunnel URL after pressing F5. It should in the format: `https://XXXX.devtunnels.ms/`.
-    - Return to the Content Editor
-    - Navigate to the `/sitecore/system/Settings/Services/Rendering Hosts/Default` item, and set the following values, ensuring you save the changes:
-        - `Server side rendering engine endpoint URL` - `https://<<TUNNEL_URL>>/jss-render`
-        - `Server side rendering engine application URL` - `https://<<TUNNEL_URL>>`
-        - `Server side rendering engine configuration URL` - `https://<<TUNNEL_URL>>/api/editing/config`
-    - Click the Home icon in the top left corner of the Content Editor (the nine square grid icon).
-    - Click on the Pages icon
-    - You will be taken to your Pages instance, which is now connected to the head application running on your local devleoper machine. You can now add and remove components from the page and see the changes reflected in real-time. Please note the known issues stated above to see which components are not yet supported.
+5. Pages is now connected to the head application running on your local devleoper machine. You can now add and remove components from the page and see the changes reflected in real-time. Please note the known issues stated above to see which components are not yet supported.
 
 ## Disconnected offline development
 It is possible to mock a small subset of the XM Cloud Application elements to enable offline development. This can allow for a disconnected development experience, however it is recommend to work in the default connected mode.
